@@ -12,7 +12,15 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textView;
     Button button;
-
+    String[] activeQuestions;
+    String activeQuestion;
+    String[] questionsWithAnswers = 
+        {"",
+         "",
+         "",
+         "",
+         ""};
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +34,23 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .add(R.id.container, new OneFragment())
                 .commit();
+        
+        
 
-
+        activeQuestions = Arrays.asList(questionsWithAnswers);
     }
 
 
     protected void buttonListener(View view) {
-
-
+        
+        int questionNumber = Math.Random(
+    
+        activeQuestion = activeQuestions[questionNumber];
+            
+//     String[] makeList = {"a ", "b ", "c ", "d "};
+//     List<String> list = Arrays.asList(makeList);
+//     ArrayList<String> arrayList = new ArrayList<String>(list);
+        
 
         getSupportFragmentManager()
                 .beginTransaction()
