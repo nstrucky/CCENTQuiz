@@ -3,4 +3,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="questions_array">
+
+        <item>Question 1: \na.\nb.\nc.</item>
+        <item>Question 2: \na.\nb.\nc.</item>
+        <item>Question 3 \na.\nb.\nc.</item>
+
+    </string-array>
 </resources>

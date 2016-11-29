@@ -13,7 +13,8 @@
         android:text="TWO!"
         android:paddingTop="64dp"
         android:textStyle="normal|bold"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:id="@+id/text2"/>
 
 
 </FrameLayout>
