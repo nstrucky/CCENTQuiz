@@ -20,9 +20,15 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button;
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
+    protected static final String BUNDLE_INT_KEY = "bundle_int_key";//will need this to send the Map Key for the selected question 
+                                                                    //to the Fragment created so that we can dynamically change
+                                                                    //the layout depending on which one is selected. 
 
-    Map<Integer, String> activeQuestionsMap;
-    String[] questionsArray;
+    Map<Integer, Map<Integer, List<String>>> activeQuestionsMap; //needed to match questions to answers
+    String[] singleAnswerQuestionsArray;
+    String[] multipleAnswerQuestionsArray;
+    String[] openAnswerQuestionsArray;
+    
     Random randomGenerator;
 
 
@@ -38,16 +44,64 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .add(R.id.container, new OneFragment())
                 .commit();
-                    
-        questionsArray = getResources()
-                        .getStringArray(R.array.questions_array);
+                          
+        
+        //Have tree here and bind each to either 1, 2, or 3;
+        
+        singleAnswerQuestionsArray = getResources()
+                        .getStringArray(R.array.one_questions_array);
+        multipleAnswerQuestionsArray = getResources()
+                        .getStringArray(R.array.multi_questions_array);
+        openAnswerQuestionsArray = getResources()
+                        .getStringArray(R.array.open_questions_array);
+        
 
-        activeQuestionsMap = new HashMap<>();
-        for (int i = 0; i < questionsArray.length; i++) {
-            activeQuestionsMap.put(i, questionsArray[i]);
+
+        //put each array into a map, give each value a key
+        Map<Integer, String> singleAnswerQuestionMap = new HashMap<>();
+
+        for (int i = 0; i < singleAnswerQuestionArray.length; i++) {
+          singleAnswerQuestionMap.put(i, singleAnswerQuestionArray[i]);
+        }
+
+        Map<Integer, String> multiAnswerQuestionMap = new HashMap<>();
+
+        for (int i = 0; i < multiAnswerQuestionArray.length; i++) {
+          multiAnswerQuestionMap.put(i, multiAnswerQuestionArray[i]);
+        }
+
+        Map<Integer, String> openAnswerQuestionMap = new HashMap<>();
+
+        for (int i = 0; i < openAnswerQuestionArray.length; i++) {
+          openAnswerQuestionMap.put(i, openAnswerQuestionArray[i]);
+        }
+    
+        //Map each of the HashMaps to a keyValue
+        Map<Integer, Map<Integer, String>> outerMap = new HashMap<>();
+
+        outerMap.put(0, singleAnswerQuestionMap);
+        outerMap.put(0, multiAnswerQuestionMap);
+        outerMap.put(0, openAnswerQuestionMap);
+            
+        
+
+        
+
+
+
+        
+        
+        //add each entry from tree to HashMap
+        
+
+        activeQuestionsMap = new HashMap<<Integer, Map.Entry>();
+        
+        //interate through the 
 
         }
     }
+    
+    private void add
 
     protected void buttonListener(View view) {
 
@@ -61,20 +115,40 @@ public class MainActivity extends AppCompatActivity {
         } else {
             random = 0;
         }
+        
+        Integer questionNumberKey = (Integer) keySetArray[random];
+        
 
-        createFragmentWithQuestion(((Integer) keySetArray[random]));
+        createFragment(questionNumberKey);
+        
 
     }
 
-    private void createFragmentWithQuestion(Integer questionNumber) {
+    private void createFragment(Integer questionNumberKey) {
 
-        TwoFragment aFragment = new TwoFragment();
+        Fragment aFragment;
+        
+            switch (typeOfQuestion) {
+         
+            case singleAnswer:
+                aFragment = new singleQuestionFragment();
+                break;
+            case multiAnswer:
+                aFragment = new multiQuestionFragment();
+                break;
+            case openAnswer:
+                aFragment = new openQuestionFragment();
+                break;
+                        
+        }
+  
         Bundle args = new Bundle();
-        args.putString(BUNDLE_STRING_KEY, activeQuestionsMap.get(questionNumber));
+        args.putString(BUNDLE_STRING_KEY, activeQuestionsMap.get(questionNumberKey));
+        args.putInt(BUNDLE_INT_KEY, questionNumberKey);//May need to unbox here?
         aFragment.setArguments(args);
 
         if (activeQuestionsMap.size() > 1) {
-            activeQuestionsMap.remove(questionNumber);
+            activeQuestionsMap.remove(questionNumberKey);
         }
 
         getSupportFragmentManager()
@@ -85,6 +159,4 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
     }
-
-
 }
