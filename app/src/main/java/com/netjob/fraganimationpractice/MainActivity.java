@@ -11,15 +11,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
-    protected static final String BUNDLE_INT_KEY = "bundle_int_key";
-    
-    ArrayList<String> activeQuestionsArrayList;
+
+    Map<Integer, String> activeQuestionsMap;
     String[] questionsArray;
     Random randomGenerator;
 
@@ -39,44 +41,48 @@ public class MainActivity extends AppCompatActivity {
                     
         questionsArray = getResources()
                         .getStringArray(R.array.questions_array);
-        activeQuestionsArrayList = new ArrayList<String>(Arrays.asList(questionsArray));
 
+        activeQuestionsMap = new HashMap<>();
+        for (int i = 0; i < questionsArray.length; i++) {
+            activeQuestionsMap.put(i, questionsArray[i]);
+
+        }
     }
 
     protected void buttonListener(View view) {
 
-            if (activeQuestionsArrayList.size() > 1) {
+        int random;
 
-                int questionNumber = randomGenerator.nextInt(activeQuestionsArrayList.size() - 1);
+        Object[] keySetArray = activeQuestionsMap.keySet().toArray();
 
-                TwoFragment aFragment = new TwoFragment();
-                Bundle args = new Bundle();
-                args.putString(BUNDLE_STRING_KEY, "example String");
-                args.putInt(BUNDLE_INT_KEY, questionNumber);
-                aFragment.setArguments(args);
+        if (keySetArray.length > 1) {
+            random = randomGenerator.nextInt(keySetArray.length - 1);
 
-                activeQuestionsArrayList.remove(questionNumber);
+        } else {
+            random = 0;
+        }
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .replace(R.id.container, aFragment)
-                        .addToBackStack(null)
-                        .commit();
+        createFragmentWithQuestion(((Integer) keySetArray[random]));
 
-            } else {
-                Toast.makeText(getApplicationContext(), "Ya done", Toast.LENGTH_SHORT).show();
-                return;
-            }
+    }
 
+    private void createFragmentWithQuestion(Integer questionNumber) {
 
+        TwoFragment aFragment = new TwoFragment();
+        Bundle args = new Bundle();
+        args.putString(BUNDLE_STRING_KEY, activeQuestionsMap.get(questionNumber));
+        aFragment.setArguments(args);
 
+        if (activeQuestionsMap.size() > 1) {
+            activeQuestionsMap.remove(questionNumber);
+        }
 
-
-
-
-
-
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .replace(R.id.container, aFragment)
+                .addToBackStack(null)
+                .commit();
 
     }
 
