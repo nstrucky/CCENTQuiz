@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
                                                                     //to the Fragment created so that we can dynamically change
                                                                     //the layout depending on which one is selected. 
 
-    Map<Integer, Map<Integer, List<String>>> activeQuestionsMap; //needed to match questions to answers
+    Map<Integer, Map<Integer, String>> questionsHierarchyMap;
     String[] singleAnswerQuestionsArray;
     String[] multipleAnswerQuestionsArray;
     String[] openAnswerQuestionsArray;
@@ -77,27 +77,12 @@ public class MainActivity extends AppCompatActivity {
         }
     
         //Map each of the HashMaps to a keyValue
-        Map<Integer, Map<Integer, String>> outerMap = new HashMap<>();
+        /*Map<Integer, Map<Integer, String>>*/ questionsHierarchyMap = new HashMap<>();
 
-        outerMap.put(0, singleAnswerQuestionMap);
-        outerMap.put(0, multiAnswerQuestionMap);
-        outerMap.put(0, openAnswerQuestionMap);
+        questionsHierarchyMap.put(0, singleAnswerQuestionMap);
+        questionsHierarchyMap.put(1, multiAnswerQuestionMap);
+        questionsHierarchyMap.put(2, openAnswerQuestionMap);
             
-        
-
-        
-
-
-
-        
-        
-        //add each entry from tree to HashMap
-        
-
-        activeQuestionsMap = new HashMap<<Integer, Map.Entry>();
-        
-        //interate through the 
-
         }
     }
     
@@ -105,9 +90,17 @@ public class MainActivity extends AppCompatActivity {
 
     protected void buttonListener(View view) {
 
-        int random;
+        int random = new Random();
 
-        Object[] keySetArray = activeQuestionsMap.keySet().toArray();
+        Object[] hierarchyKeys = questionsHierarchyMap.keySet().toArray();
+        Object[] questionGroupKeys;
+        
+        int hKey = random.nextInt(2);
+        
+        switch (random) {
+            
+        }
+        
 
         if (keySetArray.length > 1) {
             random = randomGenerator.nextInt(keySetArray.length - 1);
