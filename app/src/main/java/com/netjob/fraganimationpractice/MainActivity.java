@@ -1,5 +1,6 @@
 package com.netjob.fraganimationpractice;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -23,9 +25,11 @@ public class MainActivity extends AppCompatActivity {
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
 
     Map<Integer, Map<Integer, String>> typeOfQuestionMap;
+    Map<Integer, Map<Integer, Map<Integer, String>>> mapMap;
     String[] singleAnswerQuestionsArray;
     String[] multiAnswerQuestionsArray;
     String[] openAnswerQuestionsArray;
+    int questionType;
     
     Random randomGenerator;
 
@@ -76,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         typeOfQuestionMap.put(0, singleAnswerQuestionMap);
         typeOfQuestionMap.put(1, multiAnswerQuestionMap);
         typeOfQuestionMap.put(2, openAnswerQuestionMap);
+
             
 
     }
@@ -86,12 +91,14 @@ public class MainActivity extends AppCompatActivity {
 
         Object[] hierarchyKeys = typeOfQuestionMap.keySet().toArray();
         ArrayList<Object> questionKeys = new ArrayList<>();
-        //TODO Once we are done with these, .clear() the group keys for the next quesiton
+
+//        int questionType = 4; //initialized to nonsensical question type number
+
 
         int randomTypeOfQuestion = random.nextInt(typeOfQuestionMap.size());
         int randomQuestionKey;
 
-        switch (randomTypeOfQuestion) {
+        switch ((Integer) hierarchyKeys[randomTypeOfQuestion]) {
 
             case 0:
                 //for single answer questions, get reference to Map<Integer, String> and get the keys
@@ -100,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
                                 typeOfQuestionMap.get(0).keySet().toArray()
                         )
                 );
+
+                questionType = 0;
                 break;
 
             case 1:
@@ -108,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                                 typeOfQuestionMap.get(1).keySet().toArray()
                         )
                 );
+                questionType = 1;
                 break;
 
             case 2:
@@ -116,27 +126,29 @@ public class MainActivity extends AppCompatActivity {
                                 typeOfQuestionMap.get(2).keySet().toArray()
                         )
                 );
+                questionType = 2;
                 break;
         }
         
 
         if (questionKeys.size() > 1) {
             randomQuestionKey = randomGenerator.nextInt(questionKeys.size());
+            Integer questionNumberKey = (Integer) questionKeys.get(randomQuestionKey);
+            createFragment(randomTypeOfQuestion, questionNumberKey);
 
         } else {
             randomQuestionKey = 0;
+            Integer questionNumberKey = (Integer) questionKeys.get(randomQuestionKey);
+            createFragment(randomTypeOfQuestion, questionNumberKey);
+            typeOfQuestionMap.remove(questionType);
         }
         
-        Integer questionNumberKey = (Integer) questionKeys.get(randomQuestionKey);
-        
-        createFragment(questionNumberKey, randomTypeOfQuestion);
+//        questionKeys.clear();
 
     }
 
 
-
-
-    private void createFragment(Integer questionNumberKey, Integer mTypeOfQuestion) {
+    private void createFragment(Integer mTypeOfQuestion, Integer questionNumberKey) {
 
         Fragment toBuildFragment = null;
         
@@ -166,9 +178,9 @@ public class MainActivity extends AppCompatActivity {
 //        if (toBuildFragment != null) {
 //            toBuildFragment.setArguments(args);
 
-            if (questionCategory.size() > 1) {
+
                 questionCategory.remove(questionNumberKey);
-            }
+
 
 //            getSupportFragmentManager()
 //                    .beginTransaction()
