@@ -20,13 +20,9 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button;
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
-    protected static final String BUNDLE_INT_KEY = "bundle_int_key";//will need this to send the Map Key for the selected question 
-                                                                    //to the Fragment created so that we can dynamically change
-                                                                    //the layout depending on which one is selected. 
 
-    Map<Integer, Map<Integer, String>> questionsHierarchyMap;
+    Map<Integer, Map<Integer, String>> typeOfQuestionMap;
     String[] singleAnswerQuestionsArray;
     String[] multiAnswerQuestionsArray;
     String[] openAnswerQuestionsArray;
@@ -39,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = (Button) findViewById(R.id.button);
         randomGenerator = new Random();
 
         getSupportFragmentManager()
@@ -61,29 +56,26 @@ public class MainActivity extends AppCompatActivity {
 
         //put each array into a map, give each value a key
         Map<Integer, String> singleAnswerQuestionMap = new HashMap<>();
-
         for (int i = 0; i < singleAnswerQuestionsArray.length; i++) {
           singleAnswerQuestionMap.put(i, singleAnswerQuestionsArray[i]);
         }
 
         Map<Integer, String> multiAnswerQuestionMap = new HashMap<>();
-
         for (int i = 0; i < multiAnswerQuestionsArray.length; i++) {
           multiAnswerQuestionMap.put(i, multiAnswerQuestionsArray[i]);
         }
 
         Map<Integer, String> openAnswerQuestionMap = new HashMap<>();
-
         for (int i = 0; i < openAnswerQuestionsArray.length; i++) {
           openAnswerQuestionMap.put(i, openAnswerQuestionsArray[i]);
         }
     
-        //Map each of the HashMaps to a keyValue
-        /*Map<Integer, Map<Integer, String>>*/ questionsHierarchyMap = new HashMap<>();
+        //Map each of the HashMaps to a keyValue (create Map of Maps)
+        /*Map<Integer, Map<Integer, String>>*/ typeOfQuestionMap = new HashMap<>();
 
-        questionsHierarchyMap.put(0, singleAnswerQuestionMap);
-        questionsHierarchyMap.put(1, multiAnswerQuestionMap);
-        questionsHierarchyMap.put(2, openAnswerQuestionMap);
+        typeOfQuestionMap.put(0, singleAnswerQuestionMap);
+        typeOfQuestionMap.put(1, multiAnswerQuestionMap);
+        typeOfQuestionMap.put(2, openAnswerQuestionMap);
             
 
     }
@@ -92,60 +84,63 @@ public class MainActivity extends AppCompatActivity {
 
         Random random = new Random();
 
-        Object[] hierarchyKeys = questionsHierarchyMap.keySet().toArray();
-        ArrayList<Object> questionGroupKeys = new ArrayList<>();
+        Object[] hierarchyKeys = typeOfQuestionMap.keySet().toArray();
+        ArrayList<Object> questionKeys = new ArrayList<>();
         //TODO Once we are done with these, .clear() the group keys for the next quesiton
 
-        int randomHierarchyKey = random.nextInt(3);
+        int randomTypeOfQuestion = random.nextInt(typeOfQuestionMap.size());
         int randomQuestionKey;
 
-        switch (randomHierarchyKey) {
+        switch (randomTypeOfQuestion) {
 
             case 0:
                 //for single answer questions, get reference to Map<Integer, String> and get the keys
-                questionGroupKeys.addAll(
+                questionKeys.addAll(
                         Arrays.asList(
-                                questionsHierarchyMap.get(0).keySet().toArray()
+                                typeOfQuestionMap.get(0).keySet().toArray()
                         )
                 );
                 break;
 
             case 1:
-                questionGroupKeys.addAll(
+                questionKeys.addAll(
                         Arrays.asList(
-                                questionsHierarchyMap.get(1).keySet().toArray()
+                                typeOfQuestionMap.get(1).keySet().toArray()
                         )
                 );
                 break;
 
             case 2:
-                questionGroupKeys.addAll(
+                questionKeys.addAll(
                         Arrays.asList(
-                                questionsHierarchyMap.get(2).keySet().toArray()
+                                typeOfQuestionMap.get(2).keySet().toArray()
                         )
                 );
                 break;
         }
         
 
-        if (questionGroupKeys.size() > 1) {
-            randomQuestionKey = randomGenerator.nextInt(questionGroupKeys.size());
+        if (questionKeys.size() > 1) {
+            randomQuestionKey = randomGenerator.nextInt(questionKeys.size());
 
         } else {
             randomQuestionKey = 0;
         }
         
-        Object questionNumberKey = questionGroupKeys.get(randomQuestionKey);
+        Integer questionNumberKey = (Integer) questionKeys.get(randomQuestionKey);
         
-        createFragment(questionNumberKey, randomHierarchyKey);
+        createFragment(questionNumberKey, randomTypeOfQuestion);
 
     }
 
-    private void createFragment(Object questionNumberKey, Integer typeOfQuestion) {
+
+
+
+    private void createFragment(Integer questionNumberKey, Integer mTypeOfQuestion) {
 
         Fragment toBuildFragment = null;
         
-            switch (typeOfQuestion) {
+            switch (mTypeOfQuestion) {
          
             case 0:
                 //TODO toBuildFragment = new singleQuestionFragment();
@@ -164,16 +159,15 @@ public class MainActivity extends AppCompatActivity {
   
         Bundle args = new Bundle();
 
-        Map<Integer, String> currentQuestions = questionsHierarchyMap.get(typeOfQuestion);
+        Map<Integer, String> questionCategory = typeOfQuestionMap.get(mTypeOfQuestion);
 
-        args.putString(BUNDLE_STRING_KEY,
-                currentQuestions.get(questionNumberKey));
+        args.putString(BUNDLE_STRING_KEY, questionCategory.get(questionNumberKey));
 
 //        if (toBuildFragment != null) {
 //            toBuildFragment.setArguments(args);
 
-            if (currentQuestions.size() > 1) {
-                currentQuestions.remove(questionNumberKey);
+            if (questionCategory.size() > 1) {
+                questionCategory.remove(questionNumberKey);
             }
 
 //            getSupportFragmentManager()

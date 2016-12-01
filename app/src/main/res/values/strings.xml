@@ -9,7 +9,7 @@
 
         <item>Question 1: \na.\nb.\nc.</item>
         <item>Question 2: \na.\nb.\nc.</item>
-        <item>Question 3 \na.\nb.\nc.</item>
+        <item>Question 3: \na.\nb.\nc.</item>
 
     </string-array>
 
@@ -17,7 +17,7 @@
 
         <item>Question 1: \na.\nb.\nc.</item>
         <item>Question 2: \na.\nb.\nc.</item>
-        <item>Question 3 \na.\nb.\nc.</item>
+        <item>Question 3: \na.\nb.\nc.</item>
 
     </string-array>
 
@@ -25,7 +25,7 @@
 
         <item>Question 1: \na.\nb.\nc.</item>
         <item>Question 2: \na.\nb.\nc.</item>
-        <item>Question 3 \na.\nb.\nc.</item>
+        <item>Question 3: \na.\nb.\nc.</item>
 
     </string-array>
 </resources>
