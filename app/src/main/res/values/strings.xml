@@ -5,7 +5,23 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-    <string-array name="questions_array">
+    <string-array name="one_questions_array">
+
+        <item>Question 1: \na.\nb.\nc.</item>
+        <item>Question 2: \na.\nb.\nc.</item>
+        <item>Question 3 \na.\nb.\nc.</item>
+
+    </string-array>
+
+    <string-array name="multi_questions_array">
+
+        <item>Question 1: \na.\nb.\nc.</item>
+        <item>Question 2: \na.\nb.\nc.</item>
+        <item>Question 3 \na.\nb.\nc.</item>
+
+    </string-array>
+
+    <string-array name="open_questions_array">
 
         <item>Question 1: \na.\nb.\nc.</item>
         <item>Question 2: \na.\nb.\nc.</item>
