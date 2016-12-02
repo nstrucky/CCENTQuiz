@@ -25,7 +25,10 @@ public class MainActivity extends AppCompatActivity {
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
 
     Map<Integer, Map<Integer, String>> typeOfQuestionMap;
-    Map<Integer, Map<Integer, Map<Integer, String>>> mapMap;
+    Map<Integer, String> singleAnswerQuestionMap;
+    Map<Integer, String> multiAnswerQuestionMap;
+    Map<Integer, String> openAnswerQuestionMap;
+
     String[] singleAnswerQuestionsArray;
     String[] multiAnswerQuestionsArray;
     String[] openAnswerQuestionsArray;
@@ -45,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .add(R.id.container, new OneFragment())
                 .commit();
-                          
-        
+
         //Have tree here and bind each to either 1, 2, or 3;
         
         singleAnswerQuestionsArray = getResources()
@@ -59,17 +61,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         //put each array into a map, give each value a key
-        Map<Integer, String> singleAnswerQuestionMap = new HashMap<>();
+        singleAnswerQuestionMap = new HashMap<>();
         for (int i = 0; i < singleAnswerQuestionsArray.length; i++) {
           singleAnswerQuestionMap.put(i, singleAnswerQuestionsArray[i]);
         }
 
-        Map<Integer, String> multiAnswerQuestionMap = new HashMap<>();
+        multiAnswerQuestionMap = new HashMap<>();
         for (int i = 0; i < multiAnswerQuestionsArray.length; i++) {
           multiAnswerQuestionMap.put(i, multiAnswerQuestionsArray[i]);
         }
 
-        Map<Integer, String> openAnswerQuestionMap = new HashMap<>();
+        openAnswerQuestionMap = new HashMap<>();
         for (int i = 0; i < openAnswerQuestionsArray.length; i++) {
           openAnswerQuestionMap.put(i, openAnswerQuestionsArray[i]);
         }
@@ -90,60 +92,56 @@ public class MainActivity extends AppCompatActivity {
         Random random = new Random();
 
         Object[] hierarchyKeys = typeOfQuestionMap.keySet().toArray();
-        ArrayList<Object> questionKeys = new ArrayList<>();
+        Object[] questionKeys = null;
 
 //        int questionType = 4; //initialized to nonsensical question type number
 
 
-        int randomTypeOfQuestion = random.nextInt(typeOfQuestionMap.size());
-        int randomQuestionKey;
+        int randomTypeOfQuestion;
+
+        if (hierarchyKeys.length > 1) {
+            randomTypeOfQuestion = random.nextInt(hierarchyKeys.length);
+        } else {
+            randomTypeOfQuestion = 0;
+        }
+
+
 
         switch ((Integer) hierarchyKeys[randomTypeOfQuestion]) {
 
             case 0:
                 //for single answer questions, get reference to Map<Integer, String> and get the keys
-                questionKeys.addAll(
-                        Arrays.asList(
-                                typeOfQuestionMap.get(0).keySet().toArray()
-                        )
-                );
-
+                questionKeys = singleAnswerQuestionMap.keySet().toArray();
                 questionType = 0;
                 break;
 
             case 1:
-                questionKeys.addAll(
-                        Arrays.asList(
-                                typeOfQuestionMap.get(1).keySet().toArray()
-                        )
-                );
+                questionKeys = multiAnswerQuestionMap.keySet().toArray();
                 questionType = 1;
                 break;
 
             case 2:
-                questionKeys.addAll(
-                        Arrays.asList(
-                                typeOfQuestionMap.get(2).keySet().toArray()
-                        )
-                );
+                questionKeys = openAnswerQuestionMap.keySet().toArray();
                 questionType = 2;
                 break;
         }
-        
 
-        if (questionKeys.size() > 1) {
-            randomQuestionKey = randomGenerator.nextInt(questionKeys.size());
-            Integer questionNumberKey = (Integer) questionKeys.get(randomQuestionKey);
-            createFragment(randomTypeOfQuestion, questionNumberKey);
+        int randomQuestionKey;
+
+        if (questionKeys!= null && questionKeys.length > 1) {
+            randomQuestionKey = randomGenerator.nextInt(questionKeys.length);
+            Integer questionNumberKey = (Integer) questionKeys[randomQuestionKey];
+            createFragment(questionType, questionNumberKey);
 
         } else {
             randomQuestionKey = 0;
-            Integer questionNumberKey = (Integer) questionKeys.get(randomQuestionKey);
-            createFragment(randomTypeOfQuestion, questionNumberKey);
+            Integer questionNumberKey = (Integer) questionKeys[randomQuestionKey];
+            createFragment(questionType, questionNumberKey);
             typeOfQuestionMap.remove(questionType);
         }
         
 //        questionKeys.clear();
+
 
     }
 
