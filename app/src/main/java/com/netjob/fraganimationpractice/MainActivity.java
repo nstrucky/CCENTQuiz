@@ -20,6 +20,8 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
+//delete this comment
+
 public class MainActivity extends AppCompatActivity {
 
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
