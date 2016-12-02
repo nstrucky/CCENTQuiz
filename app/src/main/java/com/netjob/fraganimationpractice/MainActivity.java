@@ -89,25 +89,30 @@ public class MainActivity extends AppCompatActivity {
 
     protected void buttonListener(View view) {
 
-        Random random = new Random();
+        int randomTypeOfQuestion;
+        int randomQuestionKey;
+        Integer questionNumberKey;
 
-        Object[] hierarchyKeys = typeOfQuestionMap.keySet().toArray();
+        Object[] typeOfQuestionKeys;
         Object[] questionKeys = null;
 
-//        int questionType = 4; //initialized to nonsensical question type number
+        Random random = new Random();
 
+        if (typeOfQuestionMap.isEmpty()) {
+            //TODO displayScore();
+            Toast.makeText(this, "displayScore();", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        typeOfQuestionKeys = typeOfQuestionMap.keySet().toArray();
 
-        int randomTypeOfQuestion;
+        if (typeOfQuestionKeys.length > 1) {
+            randomTypeOfQuestion = random.nextInt(typeOfQuestionKeys.length);
 
-        if (hierarchyKeys.length > 1) {
-            randomTypeOfQuestion = random.nextInt(hierarchyKeys.length);
         } else {
             randomTypeOfQuestion = 0;
         }
 
-
-
-        switch ((Integer) hierarchyKeys[randomTypeOfQuestion]) {
+        switch ((Integer) typeOfQuestionKeys[randomTypeOfQuestion]) {
 
             case 0:
                 //for single answer questions, get reference to Map<Integer, String> and get the keys
@@ -126,23 +131,17 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        int randomQuestionKey;
-
         if (questionKeys!= null && questionKeys.length > 1) {
             randomQuestionKey = randomGenerator.nextInt(questionKeys.length);
-            Integer questionNumberKey = (Integer) questionKeys[randomQuestionKey];
+            questionNumberKey = (Integer) questionKeys[randomQuestionKey];
             createFragment(questionType, questionNumberKey);
 
         } else {
             randomQuestionKey = 0;
-            Integer questionNumberKey = (Integer) questionKeys[randomQuestionKey];
+            questionNumberKey = (Integer) questionKeys[randomQuestionKey];
             createFragment(questionType, questionNumberKey);
             typeOfQuestionMap.remove(questionType);
         }
-        
-//        questionKeys.clear();
-
-
     }
 
 
