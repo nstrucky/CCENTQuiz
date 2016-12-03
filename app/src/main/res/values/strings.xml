@@ -3,6 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="activity_start_button">Start Quiz!</string>
+    <string name="title_screen_text">CCENT Quiz!</string>
 
 
     <string-array name="one_questions_array">

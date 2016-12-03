@@ -16,6 +16,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
+    protected static final String BUNDLE_QUESTION_NUMBER_KEY = "bundle_question_number_key";
     protected static int score;
 
 
@@ -146,15 +147,15 @@ public class MainActivity extends AppCompatActivity {
          
             case 0:
                 toBuildFragment = new SingleAnswerFragment();
-                Toast.makeText(getApplicationContext(), "Single", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Single", Toast.LENGTH_SHORT).show();
                 break;
             case 1:
                 toBuildFragment = new MultiAnswerFragment();
-                Toast.makeText(getApplicationContext(), "Multi", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Multi", Toast.LENGTH_SHORT).show();
                 break;
             case 2:
                 toBuildFragment = new OpenAnswerFragment();
-                Toast.makeText(getApplicationContext(), "Open", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Open", Toast.LENGTH_SHORT).show();
                 break;
                         
         }

@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@android:color/holo_green_light">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textview_question"
@@ -28,36 +28,47 @@
 
             <RadioButton
                 android:id="@+id/radioButton"
+                style="@style/single_answer_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="A"
-                style="@style/single_answer_buttons"/>
+                android:text="A" />
 
             <RadioButton
                 android:id="@+id/radioButton2"
+                style="@style/single_answer_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="B"
-                style="@style/single_answer_buttons"/>
+                android:text="B" />
 
             <RadioButton
                 android:id="@+id/radioButton3"
+                style="@style/single_answer_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="C"
-                style="@style/single_answer_buttons"/>
+                android:text="C" />
 
             <RadioButton
                 android:id="@+id/radioButton4"
+                style="@style/single_answer_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="D"
-                style="@style/single_answer_buttons"/>
+                android:text="D" />
+
+            <ImageButton
+                android:id="@+id/imageButton_single_fragment"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:onClick="buttonListener"
+                app:srcCompat="@android:drawable/ic_media_next" />
+
         </LinearLayout>
+
     </LinearLayout>
 
 </FrameLayout>
