@@ -1,30 +1,23 @@
 package com.netjob.fraganimationpractice;
 
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
-import java.util.Set;
 
 //delete this comment
 
 public class MainActivity extends AppCompatActivity {
 
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
+    protected static int score;
+
 
     Map<Integer, Map<Integer, String>> typeOfQuestionMap;
     Map<Integer, String> singleAnswerQuestionMap;
@@ -48,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container, new OneFragment())
+                .add(R.id.main_frag_container, new LandingFragment())
                 .commit();
 
         //Have tree here and bind each to either 1, 2, or 3;
@@ -84,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
         typeOfQuestionMap.put(0, singleAnswerQuestionMap);
         typeOfQuestionMap.put(1, multiAnswerQuestionMap);
         typeOfQuestionMap.put(2, openAnswerQuestionMap);
-
-            
 
     }
 
@@ -149,50 +140,42 @@ public class MainActivity extends AppCompatActivity {
 
     private void createFragment(Integer mTypeOfQuestion, Integer questionNumberKey) {
 
-        Fragment toBuildFragment = null;
+          Fragment toBuildFragment = null;
         
             switch (mTypeOfQuestion) {
          
             case 0:
-                //TODO toBuildFragment = new singleQuestionFragment();
+                toBuildFragment = new SingleAnswerFragment();
                 Toast.makeText(getApplicationContext(), "Single", Toast.LENGTH_SHORT).show();
                 break;
             case 1:
-                //TODO toBuildFragment = new multiQuestionFragment();
+                toBuildFragment = new MultiAnswerFragment();
                 Toast.makeText(getApplicationContext(), "Multi", Toast.LENGTH_SHORT).show();
                 break;
             case 2:
-                //TODO toBuildFragment = new openQuestionFragment();
+                toBuildFragment = new OpenAnswerFragment();
                 Toast.makeText(getApplicationContext(), "Open", Toast.LENGTH_SHORT).show();
                 break;
                         
         }
   
         Bundle args = new Bundle();
-
         Map<Integer, String> questionCategory = typeOfQuestionMap.get(mTypeOfQuestion);
-
         args.putString(BUNDLE_STRING_KEY, questionCategory.get(questionNumberKey));
 
 //        if (toBuildFragment != null) {
-//            toBuildFragment.setArguments(args);
 
+            toBuildFragment.setArguments(args);
+            questionCategory.remove(questionNumberKey);
 
-                questionCategory.remove(questionNumberKey);
-
-
-//            getSupportFragmentManager()
-//                    .beginTransaction()
+            getSupportFragmentManager()
+                    .beginTransaction()
 //                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//                    .replace(R.id.container, toBuildFragment)
-//                    .addToBackStack(null)
-//                    .commit();
-
+                    .replace(R.id.main_frag_container, toBuildFragment)
+                    .addToBackStack(null)
+                    .commit();
 
 //        }
-
-
-
 
     }
 }

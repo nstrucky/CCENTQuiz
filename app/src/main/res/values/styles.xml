@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="single_answer_buttons">
+
+        <item name="android:textSize">@dimen/question_fragment_text_size</item>
+        <item name="android:padding">10dp</item>
+
+    </style>
+
 </resources>

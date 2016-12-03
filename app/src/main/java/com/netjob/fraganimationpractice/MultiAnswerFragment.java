@@ -12,13 +12,12 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TwoFragment extends Fragment {
+public class MultiAnswerFragment extends Fragment {
 
+    private String questionTextFromBundle;
+    private TextView questionTextView;
 
-    TextView textView2;
-    String fromBundle;
-
-    public TwoFragment() {
+    public MultiAnswerFragment() {
         // Required empty public constructor
     }
 
@@ -26,13 +25,12 @@ public class TwoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_two, container, false);
-        textView2 = (TextView) view.findViewById(R.id.text2);
-        fromBundle = getArguments().getString(MainActivity.BUNDLE_STRING_KEY, "nope");
-        textView2.setText(fromBundle);
+        View view =  inflater.inflate(R.layout.fragment_multi_answer, container, false);
 
+        questionTextFromBundle = getArguments().getString(MainActivity.BUNDLE_STRING_KEY, "Error");
+        questionTextView = (TextView) view.findViewById(R.id.textview_question);
+        questionTextView.setText("Multi\n" + questionTextFromBundle);
 
         return view;
     }

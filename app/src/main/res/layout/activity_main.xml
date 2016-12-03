@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:id="@+id/container"
+        android:id="@+id/main_frag_container"
         android:background="@color/colorPrimaryDark">
 
     </FrameLayout>

@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.netjob.fraganimationpractice.OpenAnswerFragment"
+    android:background="@android:color/holo_blue_bright">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/textview_question"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:padding="16dp"
+        android:text="Question 1: \na.\nb.\nc."
+        android:textSize="@dimen/question_fragment_text_size" />
+
+</FrameLayout>
