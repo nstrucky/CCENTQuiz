@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +27,7 @@ public class OpenAnswerFragment extends Fragment {
     private String correctAnswer;
     private String userInput;
 
-    private Button checkButton;
+    private ImageButton checkButton;
 
     public OpenAnswerFragment() {
         // Required empty public constructor
@@ -47,7 +48,7 @@ public class OpenAnswerFragment extends Fragment {
         questionTextView = (TextView) view.findViewById(R.id.textview_question);
         questionTextView.setText(questionTextFromBundle);
 
-        checkButton = (Button) view.findViewById(R.id.checkButtonOpen);
+        checkButton = (ImageButton) view.findViewById(R.id.imageButton_open_check);
         checkButton.setOnClickListener(new OpenCheckButtonListener());
 
 
@@ -59,15 +60,15 @@ public class OpenAnswerFragment extends Fragment {
         switch (questionNumber) {
 
             case 0:
-                correctAnswer = "answer!";
+                correctAnswer = "open shortest path first";
                 break;
 
             case 1:
-                correctAnswer = "answer!";
+                correctAnswer = "show ip ospf database";
                 break;
 
             case 2:
-                correctAnswer = "answer!";
+                correctAnswer = "show ip ospf interface brief";
                 break;
 
         }

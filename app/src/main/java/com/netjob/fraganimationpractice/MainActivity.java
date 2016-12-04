@@ -1,5 +1,6 @@
 package com.netjob.fraganimationpractice;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
     protected static final String BUNDLE_QUESTION_NUMBER_KEY = "bundle_question_number_key";
     protected static int score;
+    protected int numberOfQuestions;
 
     Map<Integer, Map<Integer, String>> typeOfQuestionMap;
     Map<Integer, String> singleAnswerQuestionMap;
@@ -30,9 +32,8 @@ public class MainActivity extends AppCompatActivity {
     String[] multiAnswerQuestionsArray;
     String[] openAnswerQuestionsArray;
     int questionType;
-    
-    Random randomGenerator;
 
+    Random randomGenerator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +48,18 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
         //Have tree here and bind each to either 1, 2, or 3;
-        
+
         singleAnswerQuestionsArray = getResources()
                         .getStringArray(R.array.one_questions_array);
         multiAnswerQuestionsArray = getResources()
                         .getStringArray(R.array.multi_questions_array);
         openAnswerQuestionsArray = getResources()
                         .getStringArray(R.array.open_questions_array);
-        
+
+        numberOfQuestions =
+                        singleAnswerQuestionsArray.length +
+                        multiAnswerQuestionsArray.length +
+                        openAnswerQuestionsArray.length;
 
 
         //put each array into a map, give each value a key
@@ -72,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < openAnswerQuestionsArray.length; i++) {
           openAnswerQuestionMap.put(i, openAnswerQuestionsArray[i]);
         }
-    
+
         //Map each of the HashMaps to a keyValue (create Map of Maps)
         /*Map<Integer, Map<Integer, String>>*/ typeOfQuestionMap = new HashMap<>();
 
@@ -148,9 +153,9 @@ public class MainActivity extends AppCompatActivity {
         args.putInt(BUNDLE_QUESTION_NUMBER_KEY, questionNumberKey);
 
         Fragment toBuildFragment = null;
-        
+
             switch (mTypeOfQuestion) {
-         
+
             case 0:
                 toBuildFragment = new SingleAnswerFragment();
                 break;
@@ -160,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             case 2:
                 toBuildFragment = new OpenAnswerFragment();
                 break;
-                        
+
         }
 
         if (toBuildFragment != null) {
@@ -170,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                    .setCustomAnimations(R.anim.animator1, R.anim.animator1)
                     .replace(R.id.main_frag_container, toBuildFragment)
 //                    .addToBackStack(null)
                     .commit();
@@ -183,25 +188,34 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setMessage(String.format("You scored %d/9%n%nGood job?", score));
+//        builder.setMessage(String.format("You scored %d/9%n%nGood job?", score));
+        builder.setTitle(String.format("You scored %d/%d. Good job?", score, numberOfQuestions));
 
         builder.setPositiveButton("Reset", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 resetQuiz();
-                Toast.makeText(getApplicationContext(), "resetQuiz();", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
             }
         });
 
         builder.create().show();
-
-
     }
 
 
     private void resetQuiz() {
 
         score = 0;
+
+//        numberOfQuestions =
+//                        singleAnswerQuestionsArray.length +
+//                        multiAnswerQuestionsArray.length +
+//                        openAnswerQuestionsArray.length;
 
         //put each array into a map, give each value a key
         singleAnswerQuestionMap = new HashMap<>();

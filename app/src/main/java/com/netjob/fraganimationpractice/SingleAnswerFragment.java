@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ public class SingleAnswerFragment extends Fragment {
 
     private int questionNumberKey;
     private int correctAnswer;
-    private Button checkButton;
+    private ImageButton checkButton;
 
     private RadioGroup radioGroup;
     private RadioButton radioButtonA;
@@ -55,7 +56,7 @@ public class SingleAnswerFragment extends Fragment {
         radioButtonC = (RadioButton) view.findViewById(R.id.radioButtonC);
         radioButtonD = (RadioButton) view.findViewById(R.id.radioButtonD);
 
-        checkButton = (Button) view.findViewById(R.id.checkButtonSingle);
+        checkButton = (ImageButton) view.findViewById(R.id.imageButton_single_check);
         checkButton.setOnClickListener(new CheckButtonListener());
 
         return view;
@@ -67,15 +68,15 @@ public class SingleAnswerFragment extends Fragment {
         switch (questionNumber) {
 
             case 0:
-                correctAnswer = R.id.radioButtonA;
+                correctAnswer = R.id.radioButtonC;
                 break;
 
             case 1:
-                correctAnswer = R.id.radioButtonB;
+                correctAnswer = R.id.radioButtonD;
                 break;
 
             case 2:
-                correctAnswer = R.id.radioButtonC;
+                correctAnswer = R.id.radioButtonB;
                 break;
 
         }

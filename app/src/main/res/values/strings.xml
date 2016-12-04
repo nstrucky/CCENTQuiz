@@ -9,25 +9,72 @@
 
     <string-array name="one_questions_array">
 
-        <item>Question 1: \na.\nb.\nc.</item>
-        <item>Question 2: \na.\nb.\nc.</item>
-        <item>Question 3: \na.\nb.\nc.</item>
+        <item>A fellow engineer tells you to configure the DHCP server to lease the last 100
+            usable IP addresses in subnet 10.1.4.0/23. Which of the following IP addresses
+            could be leased as a result of your new configurations?\n\n
+            a. 10.1.4.156\n
+            b. 10.1.4.254\n
+            c. 10.1.5.200\n
+            d. 10.1.7.200
+        </item>
+        <item>An enterprise puts the DHCP and DNS servers on VLAN 10/subnet 10 in Atlanta,
+            using IP address 10.1.10.1 for the DHCP server and 10.1.10.2 for the DNS server.
+            A remote router sits in Boston, with devices on the Boston LAN using the DHCP and DNS
+            servers in Atlanta. Which of the followingneeds to be configured in the routers
+            in this enterprise to support DHCP and DNS?\n\n
+            a. The \"ip helper-address 10.1.10.1\" command in the Atlanta router\n
+            b. The \"ip helper-address 10.1.10.2\" command in the Boston router\n
+            c. The \"ip name-server 10.1.10.2\" command in the Atlanta router\n
+            d. none of the above
+        </item>
+        <item>R4 has a connected route for 172.16.8.0/22. Which of the following answers
+            list a subnet that overlaps with this subnet?\n\n
+            a. 172.16.0.0/21\n
+            b. 172.16.11.0/25\n
+            c. 172.16.6.0/23\n
+            d. 172.16.16.0/20
+        </item>
 
     </string-array>
 
     <string-array name="multi_questions_array">
 
-        <item>Question 1: \na.\nb.\nc.</item>
-        <item>Question 2: \na.\nb.\nc.</item>
-        <item>Question 3: \na.\nb.\nc.</item>
+        <item>Each answer lists two types of devices used in a 100BASE-T network.
+            If these devices were connected with UTP Ethernet cables, which pairs
+            of devices would require a straight-through cable? \n\n
+            a. PC and router\n
+            b. PC and switch\n
+            c. Wireless access point and switch\n
+            d. Router and hub
+        </item>
+        <item>An engineer had formerly configured a Cisco 2960 switch to allow Telnet access so
+            that the switch expected a password of \"mypassword\" from the Telnet user. The engineer
+            then changed the configuration to support Secure Shell. Which of the following commands
+            could have been part of the new configuration?\n\n
+            a. A \"username [name] password [password]\"  vty mode subcommand\n
+            b. A \"username [name] password [password]\"  global config command\n
+            c. A \"login local\"  vty mode subcommand\n
+            d. A \"transport input ssh\"  global config command
+        </item>
+        <item>Which of the following are true about IP address 172.16.99.45\'s IP network?\n\n
+            a. The network ID is 172.0.0.0\n
+            b. The network is a Class B network\n
+            c. The default mask for the network is 255.255.255.0\n
+            d. The number of host bits in the unsubnetted network is 16
+        </item>
 
     </string-array>
 
     <string-array name="open_questions_array">
 
-        <item>Question 1: \na.\nb.\nc.</item>
-        <item>Question 2: \na.\nb.\nc.</item>
-        <item>Question 3: \na.\nb.\nc.</item>
+        <item>What does OSPF stand for?
+        </item>
+        <item>What is the command that lists a summary of the LSAs in the local router\'s
+        LSDB, listing one line for each LSA?
+        </item>
+        <item>What is the command that Lists one line per interface on which OSPF is enabled,
+            for all interfaces (including passive interfaces) on which OSPF is enabled?.
+        </item>
 
     </string-array>
 </resources>

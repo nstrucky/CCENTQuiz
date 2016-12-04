@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.netjob.fraganimationpractice.OpenAnswerFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -30,26 +31,24 @@
                 android:id="@+id/editText_open_answer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:layout_weight="4"
-                android:inputType="text"
-                android:layout_gravity="bottom" />
+                android:inputType="text" />
 
-            <Button
-                android:id="@+id/checkButtonOpen"
+            <ImageButton
+                android:id="@+id/imageButton_open_check"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_weight="1"
-                android:text="Check" />
+                android:src="@drawable/ic_done_black_24dp" />
 
             <ImageButton
                 android:id="@+id/imageButton_open_fragment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_weight="1"
                 android:onClick="buttonListener"
-                app:srcCompat="@android:drawable/ic_media_next" />
+                android:src="@drawable/ic_forward_black_24dp" />
         </LinearLayout>
 
     </LinearLayout>

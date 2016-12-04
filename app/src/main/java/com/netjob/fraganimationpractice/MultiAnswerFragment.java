@@ -60,7 +60,7 @@ public class MultiAnswerFragment extends Fragment {
         checkBoxes[2] = checkBoxC;
         checkBoxes[3] = checkBoxD;
 
-        checkButton = (ImageButton) view.findViewById(R.id.checkButtonMulti);
+        checkButton = (ImageButton) view.findViewById(R.id.imageButton_multi_check);
         checkButton.setOnClickListener(new CheckButtonListener());
 
         return view;
@@ -71,22 +71,25 @@ public class MultiAnswerFragment extends Fragment {
         switch (questionNumber) {
 
             case 0:
+                numberOfCorrectAnswers = 3;
+                correctAnswers = new int[numberOfCorrectAnswers];
+                correctAnswers[0] = 1;
+                correctAnswers[1] = 2;
+                correctAnswers[2] = 3;
+                break;
+
+            case 1:
+                numberOfCorrectAnswers = 2;
+                correctAnswers = new int[numberOfCorrectAnswers];
+                correctAnswers[0] = 1;
+                correctAnswers[1] = 2;
+                break;
+
+            case 2:
                 numberOfCorrectAnswers = 2;
                 correctAnswers = new int[numberOfCorrectAnswers];
                 correctAnswers[0] = 1;
                 correctAnswers[1] = 3;
-                break;
-
-            case 1:
-                numberOfCorrectAnswers = 1;
-                correctAnswers = new int[numberOfCorrectAnswers];
-                correctAnswers[0] = 1;
-                break;
-
-            case 2:
-                numberOfCorrectAnswers = 1;
-                correctAnswers = new int[numberOfCorrectAnswers];
-                correctAnswers[0] = 0;
                 break;
 
         }

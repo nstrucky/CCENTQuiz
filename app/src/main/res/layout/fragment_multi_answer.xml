@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.netjob.fraganimationpractice.MultiAnswerFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -16,8 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            android:padding="16dp"
-            android:text="Question 1: \na.\nb.\nc."
             android:textSize="@dimen/question_fragment_text_size" />
 
         <LinearLayout
@@ -59,19 +58,17 @@
                 android:text="D" />
 
             <ImageButton
-                android:id="@+id/checkButtonMulti"
+                android:id="@+id/imageButton_multi_check"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_weight="1"
-                android:text="Check"
-                android:src="@drawable/ic_done_black_24dp"/>
+                android:src="@drawable/ic_done_black_24dp"
+                android:text="Check" />
 
             <ImageButton
                 android:id="@+id/imageButton_multi_fragment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_weight="1"
                 android:onClick="buttonListener"
                 android:src="@drawable/ic_forward_black_24dp" />
