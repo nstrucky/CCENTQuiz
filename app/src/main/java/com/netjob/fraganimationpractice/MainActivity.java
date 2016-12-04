@@ -141,7 +141,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void createFragment(Integer mTypeOfQuestion, Integer questionNumberKey) {
 
-          Fragment toBuildFragment = null;
+        Bundle args = new Bundle();
+        Map<Integer, String> questionCategory = typeOfQuestionMap.get(mTypeOfQuestion);
+        args.putString(BUNDLE_STRING_KEY, questionCategory.get(questionNumberKey));
+        args.putInt(BUNDLE_QUESTION_NUMBER_KEY, questionNumberKey);
+
+        Fragment toBuildFragment = null;
         
             switch (mTypeOfQuestion) {
          
@@ -160,23 +165,20 @@ public class MainActivity extends AppCompatActivity {
                         
         }
   
-        Bundle args = new Bundle();
-        Map<Integer, String> questionCategory = typeOfQuestionMap.get(mTypeOfQuestion);
-        args.putString(BUNDLE_STRING_KEY, questionCategory.get(questionNumberKey));
 
-//        if (toBuildFragment != null) {
+        if (toBuildFragment != null) {
 
             toBuildFragment.setArguments(args);
             questionCategory.remove(questionNumberKey);
 
             getSupportFragmentManager()
                     .beginTransaction()
-//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.main_frag_container, toBuildFragment)
                     .addToBackStack(null)
                     .commit();
 
-//        }
+        }
 
     }
 }
