@@ -40,8 +40,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="B"
-                />
+                android:text="B" />
 
             <CheckBox
                 android:id="@+id/checkBoxC"
@@ -60,13 +59,12 @@
                 android:text="D" />
 
             <Button
-                android:text="Check"
+                android:id="@+id/checkButtonMulti"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:id="@+id/checkButtonMulti"
                 android:layout_weight="1"
-                />
+                android:text="Check" />
 
             <ImageButton
                 android:id="@+id/imageButton_multi_fragment"

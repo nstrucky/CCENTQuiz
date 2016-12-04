@@ -27,11 +27,12 @@
             android:orientation="horizontal">
 
             <RadioGroup
+                android:id="@+id/radio_group_single_answer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:orientation="horizontal"
-                android:id="@+id/radio_group_single_answer">
+                android:orientation="horizontal">
+
                 <RadioButton
                     android:id="@+id/radioButtonA"
                     style="@style/single_answer_buttons"
@@ -67,13 +68,12 @@
             </RadioGroup>
 
             <Button
-                android:text="Check"
+                android:id="@+id/checkButtonSingle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:id="@+id/checkButtonSingle"
                 android:layout_weight="1"
-                />
+                android:text="Check" />
 
             <ImageButton
                 android:id="@+id/imageButton_single_fragment"

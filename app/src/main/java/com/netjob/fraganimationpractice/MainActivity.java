@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     protected static final String BUNDLE_QUESTION_NUMBER_KEY = "bundle_question_number_key";
     protected static int score;
 
-
     Map<Integer, Map<Integer, String>> typeOfQuestionMap;
     Map<Integer, String> singleAnswerQuestionMap;
     Map<Integer, String> multiAnswerQuestionMap;

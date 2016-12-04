@@ -29,15 +29,22 @@
             <EditText
                 android:id="@+id/editText"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/checkButtonOpen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:text="Check" />
 
             <ImageButton
                 android:id="@+id/imageButton_open_fragment"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
                 android:onClick="buttonListener"
