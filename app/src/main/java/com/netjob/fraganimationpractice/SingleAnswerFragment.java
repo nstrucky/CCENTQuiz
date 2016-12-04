@@ -18,6 +18,9 @@ import android.widget.Toast;
  */
 public class SingleAnswerFragment extends Fragment {
 
+    private String questionTextFromBundle;
+    private TextView questionTextView;
+
     private int questionNumberKey;
     private int correctAnswer;
     private Button checkButton;
@@ -28,13 +31,9 @@ public class SingleAnswerFragment extends Fragment {
     private RadioButton radioButtonC;
     private RadioButton radioButtonD;
 
-    String questionTextFromBundle;
-    TextView questionTextView;
-
     public SingleAnswerFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,7 +79,6 @@ public class SingleAnswerFragment extends Fragment {
                 break;
 
         }
-
     }
 
     private class CheckButtonListener implements View.OnClickListener {
