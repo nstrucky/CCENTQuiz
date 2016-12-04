@@ -58,13 +58,14 @@
                 android:layout_weight="1"
                 android:text="D" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/checkButtonMulti"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
-                android:text="Check" />
+                android:text="Check"
+                android:src="@drawable/ic_done_black_24dp"/>
 
             <ImageButton
                 android:id="@+id/imageButton_multi_fragment"
@@ -73,7 +74,7 @@
                 android:layout_margin="16dp"
                 android:layout_weight="1"
                 android:onClick="buttonListener"
-                app:srcCompat="@android:drawable/ic_media_next" />
+                android:src="@drawable/ic_forward_black_24dp" />
 
         </LinearLayout>
 

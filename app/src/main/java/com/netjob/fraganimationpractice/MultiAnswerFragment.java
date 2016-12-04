@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class MultiAnswerFragment extends Fragment {
     private CheckBox checkBoxB;
     private CheckBox checkBoxC;
     private CheckBox checkBoxD;
-
+    private ImageButton checkButton;
     public MultiAnswerFragment() {
         // Required empty public constructor
     }
@@ -59,7 +60,7 @@ public class MultiAnswerFragment extends Fragment {
         checkBoxes[2] = checkBoxC;
         checkBoxes[3] = checkBoxD;
 
-        Button checkButton = (Button) view.findViewById(R.id.checkButtonMulti);
+        checkButton = (ImageButton) view.findViewById(R.id.checkButtonMulti);
         checkButton.setOnClickListener(new CheckButtonListener());
 
         return view;

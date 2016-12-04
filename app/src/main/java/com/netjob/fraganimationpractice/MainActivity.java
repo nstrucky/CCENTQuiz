@@ -1,7 +1,9 @@
 package com.netjob.fraganimationpractice;
 
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -92,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
         Random random = new Random();
 
         if (typeOfQuestionMap.isEmpty()) {
-            //TODO displayScore();
-            Toast.makeText(this, "displayScore();", Toast.LENGTH_SHORT).show();
+            displayScore();
+//            Toast.makeText(this, "displayScore();", Toast.LENGTH_SHORT).show();
             return;
         }
         typeOfQuestionKeys = typeOfQuestionMap.keySet().toArray();
@@ -174,6 +176,60 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
 
         }
+
+    }
+
+    private void displayScore() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(String.format("You scored %d/9%n%nGood job?", score));
+
+        builder.setPositiveButton("Reset", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                resetQuiz();
+                Toast.makeText(getApplicationContext(), "resetQuiz();", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.create().show();
+
+
+    }
+
+
+    private void resetQuiz() {
+
+        score = 0;
+
+        //put each array into a map, give each value a key
+        singleAnswerQuestionMap = new HashMap<>();
+        for (int i = 0; i < singleAnswerQuestionsArray.length; i++) {
+            singleAnswerQuestionMap.put(i, singleAnswerQuestionsArray[i]);
+        }
+
+        multiAnswerQuestionMap = new HashMap<>();
+        for (int i = 0; i < multiAnswerQuestionsArray.length; i++) {
+            multiAnswerQuestionMap.put(i, multiAnswerQuestionsArray[i]);
+        }
+
+        openAnswerQuestionMap = new HashMap<>();
+        for (int i = 0; i < openAnswerQuestionsArray.length; i++) {
+            openAnswerQuestionMap.put(i, openAnswerQuestionsArray[i]);
+        }
+
+        //Map each of the HashMaps to a keyValue (create Map of Maps)
+        /*Map<Integer, Map<Integer, String>>*/ typeOfQuestionMap = new HashMap<>();
+
+        typeOfQuestionMap.put(0, singleAnswerQuestionMap);
+        typeOfQuestionMap.put(1, multiAnswerQuestionMap);
+        typeOfQuestionMap.put(2, openAnswerQuestionMap);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_frag_container, new LandingFragment())
+                .commit();
 
     }
 }
