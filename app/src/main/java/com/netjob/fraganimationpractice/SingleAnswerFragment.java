@@ -30,7 +30,7 @@ public class SingleAnswerFragment extends Fragment {
 
         questionTextFromBundle = getArguments().getString(MainActivity.BUNDLE_STRING_KEY, "Error");
         questionTextView = (TextView) view.findViewById(R.id.textview_question);
-        questionTextView.setText("Single\n" + questionTextFromBundle);
+        questionTextView.setText(questionTextFromBundle);
 
         return view;
     }

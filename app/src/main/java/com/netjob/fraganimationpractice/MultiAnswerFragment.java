@@ -41,11 +41,11 @@ public class MultiAnswerFragment extends Fragment {
 
         questonNumberKey = getArguments().getInt(MainActivity.BUNDLE_QUESTION_NUMBER_KEY);
 
-        buildQuestionLogic(questonNumberKey);
+        setCorrectAnswers(questonNumberKey);
 
         questionTextFromBundle = getArguments().getString(MainActivity.BUNDLE_STRING_KEY, "Error");
         questionTextView = (TextView) view.findViewById(R.id.textview_question);
-        questionTextView.setText("Multi\n" + questionTextFromBundle);
+        questionTextView.setText(questionTextFromBundle);
 
         checkBoxes = new CheckBox[numberOfCheckBoxes];
 
@@ -60,66 +60,12 @@ public class MultiAnswerFragment extends Fragment {
         checkBoxes[3] = checkBoxD;
 
         Button checkButton = (Button) view.findViewById(R.id.checkButton);
-        checkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                switch (numberOfCorrectAnswers) {
-
-                    case 1:
-                        if (checkBoxes[correctAnswers[0]].isChecked()) {
-                            Toast.makeText(getContext(), "Correct!", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            Toast.makeText(getContext(), "Incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-
-                    case 2:
-                        if (checkBoxes[correctAnswers[0]].isChecked() &&
-                                checkBoxes[correctAnswers[1]].isChecked()) {
-                            Toast.makeText(getContext(), "Correct!", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            Toast.makeText(getContext(), "Incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-
-                    case 3:
-                        if (checkBoxes[correctAnswers[0]].isChecked() &&
-                                checkBoxes[correctAnswers[1]].isChecked() &&
-                                checkBoxes[correctAnswers[2]].isChecked()) {
-                            Toast.makeText(getContext(), "Correct!", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            Toast.makeText(getContext(), "Incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-
-                    case 4:
-                        if (checkBoxes[correctAnswers[0]].isChecked() &&
-                                checkBoxes[correctAnswers[1]].isChecked() &&
-                                checkBoxes[correctAnswers[2]].isChecked() &&
-                                checkBoxes[correctAnswers[3]].isChecked()) {
-                            Toast.makeText(getContext(), "Correct!", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            Toast.makeText(getContext(), "Incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-
-                    default:
-                        Toast.makeText(getContext(), "No Correct Answers?", Toast.LENGTH_SHORT).show();
-                        break;
-
-                }
-            }
-        });
+        checkButton.setOnClickListener(new CheckButtonListener());
 
         return view;
     }
 
-    private void buildQuestionLogic(int questionNumber) {
+    private void setCorrectAnswers(int questionNumber) {
 
         switch (questionNumber) {
 
@@ -142,10 +88,67 @@ public class MultiAnswerFragment extends Fragment {
                 correctAnswers[0] = 0;
                 break;
 
-
-
         }
+    }
 
+    class CheckButtonListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            switch (numberOfCorrectAnswers) {
+
+                case 1:
+                    if (checkBoxes[correctAnswers[0]].isChecked()) {
+                        Toast.makeText(getContext(), "Correct!", Toast.LENGTH_SHORT).show();
+                        MainActivity.score += 1;
+
+                    } else {
+                        Toast.makeText(getContext(), "Incorrect :(", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+                case 2:
+                    if (checkBoxes[correctAnswers[0]].isChecked() &&
+                            checkBoxes[correctAnswers[1]].isChecked()) {
+                        Toast.makeText(getContext(), "Correct!", Toast.LENGTH_SHORT).show();
+                        MainActivity.score += 1;
+
+                    } else {
+                        Toast.makeText(getContext(), "Incorrect :(", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+                case 3:
+                    if (checkBoxes[correctAnswers[0]].isChecked() &&
+                            checkBoxes[correctAnswers[1]].isChecked() &&
+                            checkBoxes[correctAnswers[2]].isChecked()) {
+                        Toast.makeText(getContext(), "Correct!", Toast.LENGTH_SHORT).show();
+                        MainActivity.score += 1;
+
+                    } else {
+                        Toast.makeText(getContext(), "Incorrect :(", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+                case 4:
+                    if (checkBoxes[correctAnswers[0]].isChecked() &&
+                            checkBoxes[correctAnswers[1]].isChecked() &&
+                            checkBoxes[correctAnswers[2]].isChecked() &&
+                            checkBoxes[correctAnswers[3]].isChecked()) {
+                        Toast.makeText(getContext(), "Correct!", Toast.LENGTH_SHORT).show();
+                        MainActivity.score += 1;
+
+                    } else {
+                        Toast.makeText(getContext(), "Incorrect :(", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+                default:
+                    Toast.makeText(getContext(), "No Correct Answers?", Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
+        }
     }
 
 }

@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                     .beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.main_frag_container, toBuildFragment)
-                    .addToBackStack(null)
+//                    .addToBackStack(null)
                     .commit();
 
         }
