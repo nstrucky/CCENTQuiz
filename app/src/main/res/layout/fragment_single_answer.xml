@@ -30,7 +30,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/radio_group_single_answer">
                 <RadioButton
                     android:id="@+id/radioButtonA"
                     style="@style/single_answer_buttons"
