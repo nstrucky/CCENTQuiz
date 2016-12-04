@@ -59,7 +59,7 @@ public class MultiAnswerFragment extends Fragment {
         checkBoxes[2] = checkBoxC;
         checkBoxes[3] = checkBoxD;
 
-        Button checkButton = (Button) view.findViewById(R.id.checkButton);
+        Button checkButton = (Button) view.findViewById(R.id.checkButtonMulti);
         checkButton.setOnClickListener(new CheckButtonListener());
 
         return view;
@@ -148,6 +148,12 @@ public class MultiAnswerFragment extends Fragment {
                     break;
 
             }
+
+            for (CheckBox checkbox : checkBoxes) {
+                checkbox.setClickable(false);
+                checkbox.setAlpha(.5f);
+            }
+
         }
     }
 

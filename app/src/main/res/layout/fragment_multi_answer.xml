@@ -40,7 +40,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="B" />
+                android:text="B"
+                />
 
             <CheckBox
                 android:id="@+id/checkBoxC"
@@ -63,7 +64,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:id="@+id/checkButton"
+                android:id="@+id/checkButtonMulti"
                 android:layout_weight="1"
                 />
 
@@ -74,7 +75,6 @@
                 android:layout_margin="16dp"
                 android:layout_weight="1"
                 android:onClick="buttonListener"
-
                 app:srcCompat="@android:drawable/ic_media_next" />
 
         </LinearLayout>

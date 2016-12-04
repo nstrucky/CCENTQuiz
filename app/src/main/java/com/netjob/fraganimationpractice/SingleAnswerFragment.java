@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 
@@ -13,6 +15,11 @@ import android.widget.TextView;
  * A simple {@link Fragment} subclass.
  */
 public class SingleAnswerFragment extends Fragment {
+
+    private int questionNumberKey;
+    private int correctAnswer;
+    private Button checkButton;
+
 
     String questionTextFromBundle;
     TextView questionTextView;
@@ -32,7 +39,24 @@ public class SingleAnswerFragment extends Fragment {
         questionTextView = (TextView) view.findViewById(R.id.textview_question);
         questionTextView.setText(questionTextFromBundle);
 
+        checkButton = (Button) view.findViewById(R.id.checkButtonSingle);
+
         return view;
+    }
+
+
+    public void radioButtonListener(View view) {
+
+        RadioButton radioButton = (RadioButton) view;
+
+        switch (questionNumberKey) {
+
+
+
+
+        }
+
+
     }
 
 }

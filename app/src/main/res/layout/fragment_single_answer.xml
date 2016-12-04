@@ -26,42 +26,58 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/radioButton"
-                style="@style/single_answer_buttons"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="A" />
+                android:layout_weight="4"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radioButtonA"
+                    style="@style/single_answer_buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="A" />
 
-            <RadioButton
-                android:id="@+id/radioButton2"
-                style="@style/single_answer_buttons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="B" />
+                <RadioButton
+                    android:id="@+id/radioButtonB"
+                    style="@style/single_answer_buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="B" />
 
-            <RadioButton
-                android:id="@+id/radioButton3"
-                style="@style/single_answer_buttons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="C" />
+                <RadioButton
+                    android:id="@+id/radioButtonC"
+                    style="@style/single_answer_buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="C" />
 
-            <RadioButton
-                android:id="@+id/radioButton4"
-                style="@style/single_answer_buttons"
-                android:layout_width="wrap_content"
+                <RadioButton
+                    android:id="@+id/radioButtonD"
+                    style="@style/single_answer_buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="D" />
+
+            </RadioGroup>
+
+            <Button
+                android:text="Check"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:id="@+id/checkButtonSingle"
                 android:layout_weight="1"
-                android:text="D" />
+                />
 
             <ImageButton
                 android:id="@+id/imageButton_single_fragment"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
                 android:onClick="buttonListener"

@@ -152,19 +152,15 @@ public class MainActivity extends AppCompatActivity {
          
             case 0:
                 toBuildFragment = new SingleAnswerFragment();
-//                Toast.makeText(getApplicationContext(), "Single", Toast.LENGTH_SHORT).show();
                 break;
             case 1:
                 toBuildFragment = new MultiAnswerFragment();
-//                Toast.makeText(getApplicationContext(), "Multi", Toast.LENGTH_SHORT).show();
                 break;
             case 2:
                 toBuildFragment = new OpenAnswerFragment();
-//                Toast.makeText(getApplicationContext(), "Open", Toast.LENGTH_SHORT).show();
                 break;
                         
         }
-  
 
         if (toBuildFragment != null) {
 
