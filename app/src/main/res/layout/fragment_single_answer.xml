@@ -1,11 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
+    style="@style/fragment_questions"
     tools:context="com.netjob.fraganimationpractice.SingleAnswerFragment"
-    android:padding="@dimen/fragment_padding">
+    >
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -14,11 +12,9 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textview_question"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:textSize="@dimen/question_fragment_text_size" />
+            android:id="@+id/textview_question_single"
+            style="@style/question_text_style"
+            />
 
         <View
             style="@style/line_separator"

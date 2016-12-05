@@ -47,7 +47,7 @@ public class SingleAnswerFragment extends Fragment {
         setCorrectAnswer(questionNumberKey);
 
         questionTextFromBundle = getArguments().getString(MainActivity.BUNDLE_STRING_KEY, "Error");
-        questionTextView = (TextView) view.findViewById(R.id.textview_question);
+        questionTextView = (TextView) view.findViewById(R.id.textview_question_single);
         questionTextView.setText(questionTextFromBundle);
 
         radioGroup = (RadioGroup) view.findViewById(R.id.radio_group_single_answer);
@@ -102,6 +102,9 @@ public class SingleAnswerFragment extends Fragment {
             radioButtonB.setClickable(false);
             radioButtonC.setClickable(false);
             radioButtonD.setClickable(false);
+
+            checkButton.setClickable(false);
+            checkButton.setAlpha(0.5f);
 
         }
     }

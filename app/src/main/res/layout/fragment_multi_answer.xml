@@ -1,11 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context="com.netjob.fraganimationpractice.MultiAnswerFragment"
-    android:padding="@dimen/fragment_padding">
+    style="@style/fragment_questions"
+    tools:context="com.netjob.fraganimationpractice.MultiAnswerFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -14,15 +11,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textview_question"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:textSize="@dimen/question_fragment_text_size" />
+            android:id="@+id/textview_question_multi"
+            style="@style/question_text_style"
 
-        <View
-            style="@style/line_separator"
             />
+
+        <View style="@style/line_separator" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,8 +59,7 @@
             <ImageButton
                 android:id="@+id/imageButton_multi_check"
                 style="@style/button_style"
-                android:src="@drawable/ic_done_white_24dp"
-           />
+                android:src="@drawable/ic_done_white_24dp" />
 
             <ImageButton
                 android:id="@+id/imageButton_multi_fragment"

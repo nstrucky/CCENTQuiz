@@ -45,7 +45,7 @@ public class OpenAnswerFragment extends Fragment {
         setCorrectAnswer(questionNumberKey);
 
         questionTextFromBundle = getArguments().getString(MainActivity.BUNDLE_STRING_KEY, "Error");
-        questionTextView = (TextView) view.findViewById(R.id.textview_question);
+        questionTextView = (TextView) view.findViewById(R.id.textview_question_open);
         questionTextView.setText(questionTextFromBundle);
 
         checkButton = (ImageButton) view.findViewById(R.id.imageButton_open_check);
@@ -91,6 +91,9 @@ public class OpenAnswerFragment extends Fragment {
 
             editTextOpenAnswer.setEnabled(false);
             editTextOpenAnswer.setAlpha(0.5f);
+
+            checkButton.setClickable(false);
+            checkButton.setAlpha(0.5f);
         }
     }
 

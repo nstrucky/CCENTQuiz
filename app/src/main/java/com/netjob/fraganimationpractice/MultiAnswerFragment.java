@@ -45,7 +45,7 @@ public class MultiAnswerFragment extends Fragment {
         setCorrectAnswers(questonNumberKey);
 
         questionTextFromBundle = getArguments().getString(MainActivity.BUNDLE_STRING_KEY, "Error");
-        questionTextView = (TextView) view.findViewById(R.id.textview_question);
+        questionTextView = (TextView) view.findViewById(R.id.textview_question_multi);
         questionTextView.setText(questionTextFromBundle);
 
         checkBoxes = new CheckBox[numberOfCheckBoxes];
@@ -155,8 +155,11 @@ public class MultiAnswerFragment extends Fragment {
 
             for (CheckBox checkbox : checkBoxes) {
                 checkbox.setClickable(false);
-                checkbox.setAlpha(.5f);
+                checkbox.setAlpha(0.5f);
             }
+
+            checkButton.setClickable(false);
+            checkButton.setAlpha(0.5f);
 
         }
     }

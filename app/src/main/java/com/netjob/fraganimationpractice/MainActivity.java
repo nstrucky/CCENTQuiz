@@ -132,18 +132,18 @@ public class MainActivity extends Activity {
         if (questionKeys!= null && questionKeys.length > 1) {
             randomQuestionKey = randomGenerator.nextInt(questionKeys.length);
             questionNumberKey = (Integer) questionKeys[randomQuestionKey];
-            createFragment(questionType, questionNumberKey);
+            createFragment(questionType, questionNumberKey, view);
 
         } else {
             randomQuestionKey = 0;
             questionNumberKey = (Integer) questionKeys[randomQuestionKey];
-            createFragment(questionType, questionNumberKey);
+            createFragment(questionType, questionNumberKey, view);
             typeOfQuestionMap.remove(questionType);
         }
     }
 
 
-    private void createFragment(Integer mTypeOfQuestion, Integer questionNumberKey) {
+    private void createFragment(Integer mTypeOfQuestion, Integer questionNumberKey, View view) {
 
         Bundle args = new Bundle();
         Map<Integer, String> questionCategory = typeOfQuestionMap.get(mTypeOfQuestion);
@@ -171,32 +171,46 @@ public class MainActivity extends Activity {
             toBuildFragment.setArguments(args);
             questionCategory.remove(questionNumberKey);
 
-            getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(   R.animator.card_flip_enter,
-                                            R.animator.card_flip_exit)
-                    .replace(R.id.main_frag_container, toBuildFragment)
-//                    .addToBackStack(null)
-                    .commit();
+            if (view.getId() == R.id.button_start) {
+                getFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                R.animator.card_flip_enter,
+                                R.animator.card_flip_exit)
+                        .replace(R.id.main_frag_container, toBuildFragment)
+                        .commit();
 
+            } else {
+                getFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                R.animator.card_flip_enter,
+                                R.animator.card_flip_exit)
+                        .replace(R.id.main_frag_container, toBuildFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
         }
-
     }
 
     private void displayScore() {
 
+        String message;
+
+        if (score < 7) {
+            message = "You need to study more, woh woh.";
+        } else {
+            message = "Good job!";
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-//        builder.setMessage(String.format("You scored %d/9%n%nGood job?", score));
-        builder.setTitle(String.format("You scored %d/%d. Good job?", score, numberOfQuestions));
-
+        builder.setTitle(String.format("You scored %d/%d. %s", score, numberOfQuestions, message));
         builder.setPositiveButton("Reset", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 resetQuiz();
             }
         });
-
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -211,12 +225,6 @@ public class MainActivity extends Activity {
 
         score = 0;
 
-//        numberOfQuestions =
-//                        singleAnswerQuestionsArray.length +
-//                        multiAnswerQuestionsArray.length +
-//                        openAnswerQuestionsArray.length;
-
-        //put each array into a map, give each value a key
         singleAnswerQuestionMap = new HashMap<>();
         for (int i = 0; i < singleAnswerQuestionsArray.length; i++) {
             singleAnswerQuestionMap.put(i, singleAnswerQuestionsArray[i]);
@@ -232,7 +240,6 @@ public class MainActivity extends Activity {
             openAnswerQuestionMap.put(i, openAnswerQuestionsArray[i]);
         }
 
-        //Map each of the HashMaps to a keyValue (create Map of Maps)
         /*Map<Integer, Map<Integer, String>>*/ typeOfQuestionMap = new HashMap<>();
 
         typeOfQuestionMap.put(0, singleAnswerQuestionMap);
