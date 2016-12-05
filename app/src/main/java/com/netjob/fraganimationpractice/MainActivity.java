@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import static android.support.v7.appcompat.R.styleable.AlertDialog;
+
 //delete this comment
 
 public class MainActivity extends Activity {
@@ -132,18 +134,18 @@ public class MainActivity extends Activity {
         if (questionKeys!= null && questionKeys.length > 1) {
             randomQuestionKey = randomGenerator.nextInt(questionKeys.length);
             questionNumberKey = (Integer) questionKeys[randomQuestionKey];
-            createFragment(questionType, questionNumberKey, view);
+            createFragment(questionType, questionNumberKey);
 
         } else {
             randomQuestionKey = 0;
             questionNumberKey = (Integer) questionKeys[randomQuestionKey];
-            createFragment(questionType, questionNumberKey, view);
+            createFragment(questionType, questionNumberKey);
             typeOfQuestionMap.remove(questionType);
         }
     }
 
 
-    private void createFragment(Integer mTypeOfQuestion, Integer questionNumberKey, View view) {
+    private void createFragment(Integer mTypeOfQuestion, Integer questionNumberKey) {
 
         Bundle args = new Bundle();
         Map<Integer, String> questionCategory = typeOfQuestionMap.get(mTypeOfQuestion);
@@ -171,25 +173,14 @@ public class MainActivity extends Activity {
             toBuildFragment.setArguments(args);
             questionCategory.remove(questionNumberKey);
 
-            if (view.getId() == R.id.button_start) {
-                getFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(
-                                R.animator.card_flip_enter,
-                                R.animator.card_flip_exit)
-                        .replace(R.id.main_frag_container, toBuildFragment)
-                        .commit();
-
-            } else {
-                getFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(
-                                R.animator.card_flip_enter,
-                                R.animator.card_flip_exit)
-                        .replace(R.id.main_frag_container, toBuildFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(
+                            R.animator.card_flip_enter,
+                            R.animator.card_flip_exit)
+                    .replace(R.id.main_frag_container, toBuildFragment)
+//                    .addToBackStack(null)
+                    .commit();
         }
     }
 

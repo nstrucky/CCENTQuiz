@@ -2,8 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/fragment_questions"
-    tools:context="com.netjob.fraganimationpractice.SingleAnswerFragment"
-    >
+    tools:context="com.netjob.fraganimationpractice.SingleAnswerFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -13,12 +12,9 @@
 
         <TextView
             android:id="@+id/textview_question_single"
-            style="@style/question_text_style"
-            />
+            style="@style/question_text_style" />
 
-        <View
-            style="@style/line_separator"
-            />
+        <View style="@style/line_separator" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,35 +31,23 @@
 
                 <RadioButton
                     android:id="@+id/radioButtonA"
-                    style="@style/single_answer_buttons"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="A" />
+                    style="@style/button_group_buttons"
+                    android:text="@string/button_answer_a" />
 
                 <RadioButton
                     android:id="@+id/radioButtonB"
-                    style="@style/single_answer_buttons"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="B" />
+                    style="@style/button_group_buttons"
+                    android:text="@string/button_answer_b" />
 
                 <RadioButton
                     android:id="@+id/radioButtonC"
-                    style="@style/single_answer_buttons"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="C" />
+                    style="@style/button_group_buttons"
+                    android:text="@string/button_answer_c" />
 
                 <RadioButton
                     android:id="@+id/radioButtonD"
-                    style="@style/single_answer_buttons"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="D" />
+                    style="@style/button_group_buttons"
+                    android:text="@string/button_answer_d" />
 
             </RadioGroup>
 

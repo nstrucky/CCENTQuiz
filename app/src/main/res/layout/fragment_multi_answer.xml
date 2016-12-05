@@ -13,7 +13,6 @@
         <TextView
             android:id="@+id/textview_question_multi"
             style="@style/question_text_style"
-
             />
 
         <View style="@style/line_separator" />
@@ -26,35 +25,23 @@
 
             <CheckBox
                 android:id="@+id/checkBoxA"
-                style="@style/single_answer_buttons"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="A" />
+                style="@style/button_group_buttons"
+                android:text="@string/button_answer_a" />
 
             <CheckBox
                 android:id="@+id/checkBoxB"
-                style="@style/single_answer_buttons"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="B" />
+                style="@style/button_group_buttons"
+                android:text="@string/button_answer_b" />
 
             <CheckBox
                 android:id="@+id/checkBoxC"
-                style="@style/single_answer_buttons"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="C" />
+                style="@style/button_group_buttons"
+                android:text="@string/button_answer_c" />
 
             <CheckBox
                 android:id="@+id/checkBoxD"
-                style="@style/single_answer_buttons"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="D" />
+                style="@style/button_group_buttons"
+                android:text="@string/button_answer_d" />
 
             <ImageButton
                 android:id="@+id/imageButton_multi_check"

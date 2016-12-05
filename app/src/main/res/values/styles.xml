@@ -8,10 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="single_answer_buttons">
+    <style name="button_group_buttons">
         <item name="android:textSize">@dimen/question_fragment_text_size</item>
         <item name="android:padding">10dp</item>
-
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
     </style>
 
     <style name="line_separator">
