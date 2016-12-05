@@ -30,6 +30,7 @@ public class MultiAnswerFragment extends Fragment {
     private CheckBox checkBoxC;
     private CheckBox checkBoxD;
     private ImageButton checkButton;
+
     public MultiAnswerFragment() {
         // Required empty public constructor
     }
@@ -37,7 +38,6 @@ public class MultiAnswerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_multi_answer, container, false);
 
         questonNumberKey = getArguments().getInt(MainActivity.BUNDLE_QUESTION_NUMBER_KEY);
@@ -91,7 +91,6 @@ public class MultiAnswerFragment extends Fragment {
                 correctAnswers[0] = 1;
                 correctAnswers[1] = 3;
                 break;
-
         }
     }
 
@@ -163,5 +162,4 @@ public class MultiAnswerFragment extends Fragment {
 
         }
     }
-
 }

@@ -48,7 +48,6 @@
                     android:id="@+id/radioButtonD"
                     style="@style/button_group_buttons"
                     android:text="@string/button_answer_d" />
-
             </RadioGroup>
 
             <ImageButton

@@ -1,20 +1,18 @@
 package com.netjob.fraganimationpractice;
 
-//import android.app.Activity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import static android.support.v7.appcompat.R.styleable.AlertDialog;
-
-//delete this comment
 
 public class MainActivity extends Activity {
 
@@ -47,8 +45,6 @@ public class MainActivity extends Activity {
                 .add(R.id.main_frag_container, new LandingFragment())
                 .commit();
 
-        //Have tree here and bind each to either 1, 2, or 3;
-
         singleAnswerQuestionsArray = getResources()
                         .getStringArray(R.array.one_questions_array);
         multiAnswerQuestionsArray = getResources()
@@ -62,7 +58,6 @@ public class MainActivity extends Activity {
                         openAnswerQuestionsArray.length;
 
 
-        //put each array into a map, give each value a key
         singleAnswerQuestionMap = new HashMap<>();
         for (int i = 0; i < singleAnswerQuestionsArray.length; i++) {
           singleAnswerQuestionMap.put(i, singleAnswerQuestionsArray[i]);
@@ -78,13 +73,11 @@ public class MainActivity extends Activity {
           openAnswerQuestionMap.put(i, openAnswerQuestionsArray[i]);
         }
 
-        //Map each of the HashMaps to a keyValue (create Map of Maps)
-        /*Map<Integer, Map<Integer, String>>*/ typeOfQuestionMap = new HashMap<>();
+        typeOfQuestionMap = new HashMap<>();
 
         typeOfQuestionMap.put(0, singleAnswerQuestionMap);
         typeOfQuestionMap.put(1, multiAnswerQuestionMap);
         typeOfQuestionMap.put(2, openAnswerQuestionMap);
-
     }
 
     protected void buttonListener(View view) {
@@ -100,7 +93,6 @@ public class MainActivity extends Activity {
 
         if (typeOfQuestionMap.isEmpty()) {
             displayScore();
-//            Toast.makeText(this, "displayScore();", Toast.LENGTH_SHORT).show();
             return;
         }
         typeOfQuestionKeys = typeOfQuestionMap.keySet().toArray();
@@ -115,7 +107,6 @@ public class MainActivity extends Activity {
         switch ((Integer) typeOfQuestionKeys[randomTypeOfQuestion]) {
 
             case 0:
-                //for single answer questions, get reference to Map<Integer, String> and get the keys
                 questionKeys = singleAnswerQuestionMap.keySet().toArray();
                 questionType = 0;
                 break;
@@ -143,7 +134,6 @@ public class MainActivity extends Activity {
             typeOfQuestionMap.remove(questionType);
         }
     }
-
 
     private void createFragment(Integer mTypeOfQuestion, Integer questionNumberKey) {
 
@@ -179,7 +169,6 @@ public class MainActivity extends Activity {
                             R.animator.card_flip_enter,
                             R.animator.card_flip_exit)
                     .replace(R.id.main_frag_container, toBuildFragment)
-//                    .addToBackStack(null)
                     .commit();
         }
     }
@@ -187,6 +176,11 @@ public class MainActivity extends Activity {
     private void displayScore() {
 
         String message;
+
+        Toast.makeText(getApplicationContext(),
+                "You scored " + score + " out of 9!",
+                Toast.LENGTH_SHORT)
+                .show();
 
         if (score < 7) {
             message = "You need to study more, woh woh.";
@@ -231,7 +225,7 @@ public class MainActivity extends Activity {
             openAnswerQuestionMap.put(i, openAnswerQuestionsArray[i]);
         }
 
-        /*Map<Integer, Map<Integer, String>>*/ typeOfQuestionMap = new HashMap<>();
+        typeOfQuestionMap = new HashMap<>();
 
         typeOfQuestionMap.put(0, singleAnswerQuestionMap);
         typeOfQuestionMap.put(1, multiAnswerQuestionMap);

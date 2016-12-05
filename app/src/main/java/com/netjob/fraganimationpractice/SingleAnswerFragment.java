@@ -39,7 +39,7 @@ public class SingleAnswerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view =  inflater.inflate(R.layout.fragment_single_answer, container, false);
 
         questionNumberKey = getArguments().getInt(MainActivity.BUNDLE_QUESTION_NUMBER_KEY);
@@ -61,7 +61,6 @@ public class SingleAnswerFragment extends Fragment {
 
         return view;
     }
-
 
     private void setCorrectAnswer(int questionNumber) {
 
