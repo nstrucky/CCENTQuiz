@@ -1,14 +1,12 @@
 package com.netjob.fraganimationpractice;
 
+//import android.app.Activity;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.DialogInterface;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +14,7 @@ import java.util.Random;
 
 //delete this comment
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
     protected static final String BUNDLE_QUESTION_NUMBER_KEY = "bundle_question_number_key";
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         randomGenerator = new Random();
 
-        getSupportFragmentManager()
+        getFragmentManager()
                 .beginTransaction()
                 .add(R.id.main_frag_container, new LandingFragment())
                 .commit();
@@ -173,9 +171,10 @@ public class MainActivity extends AppCompatActivity {
             toBuildFragment.setArguments(args);
             questionCategory.remove(questionNumberKey);
 
-            getSupportFragmentManager()
+            getFragmentManager()
                     .beginTransaction()
-//                    .setCustomAnimations(R.anim.animator1, R.anim.animator1)
+                    .setCustomAnimations(   R.animator.card_flip_enter,
+                                            R.animator.card_flip_exit)
                     .replace(R.id.main_frag_container, toBuildFragment)
 //                    .addToBackStack(null)
                     .commit();
@@ -240,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         typeOfQuestionMap.put(1, multiAnswerQuestionMap);
         typeOfQuestionMap.put(2, openAnswerQuestionMap);
 
-        getSupportFragmentManager()
+        getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_frag_container, new LandingFragment())
                 .commit();

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     tools:context="com.netjob.fraganimationpractice.MainActivity"
-    android:background="@android:color/darker_gray">
+    android:background="@color/colorPrimaryDark">
 
     <FrameLayout
         android:layout_width="match_parent"

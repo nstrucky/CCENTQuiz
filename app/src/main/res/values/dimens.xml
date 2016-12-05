@@ -2,6 +2,9 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fragment_padding">16dp</dimen>
     <dimen name="question_fragment_text_size">16sp</dimen>
     <dimen name="activity_title_screen_text_size">48sp</dimen>
+    <dimen name="line_view_dimen">1dp</dimen>
+    <dimen name="button_padding">16dp</dimen>
 </resources>

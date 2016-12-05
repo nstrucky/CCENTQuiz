@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-
+    android:padding="@dimen/fragment_padding"
     tools:context="com.netjob.fraganimationpractice.LandingFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -14,21 +14,24 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/title_screen_text"
-            android:textStyle="bold"
-            android:textSize="@dimen/activity_title_screen_text_size"
+            android:layout_centerInParent="true"
             android:gravity="center"
-            android:layout_centerInParent="true"/>
+            android:text="@string/title_screen_text"
+            android:textSize="@dimen/activity_title_screen_text_size"
+            android:textStyle="bold" />
 
         <Button
-            android:text="@string/activity_start_button"
+            android:id="@+id/button_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/button_padding"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:id="@+id/button_start"
-            android:onClick="buttonListener"/>
+            android:layout_gravity="center_horizontal"
+            android:onClick="buttonListener"
+            android:text="@string/activity_start_button" />
     </RelativeLayout>
 
 </FrameLayout>
