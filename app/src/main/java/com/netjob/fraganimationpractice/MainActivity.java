@@ -7,12 +7,17 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.ArraySet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,10 +44,10 @@ public class MainActivity extends Activity {
     protected static int score;
     protected int numberOfQuestions;
 
-    Map<Integer, Map<Integer, String>> typeOfQuestionMap;
-    Map<Integer, String> singleAnswerQuestionMap;
-    Map<Integer, String> multiAnswerQuestionMap;
-    Map<Integer, String> openAnswerQuestionMap;
+    HashMap<Integer, HashMap<Integer, String>> typeOfQuestionMap;
+    HashMap<Integer, String> singleAnswerQuestionMap;
+    HashMap<Integer, String> multiAnswerQuestionMap;
+    HashMap<Integer, String> openAnswerQuestionMap;
 
     String[] singleAnswerQuestionsArray;
     String[] multiAnswerQuestionsArray;
@@ -99,114 +104,50 @@ public class MainActivity extends Activity {
             typeOfQuestionMap.put(1, multiAnswerQuestionMap);
             typeOfQuestionMap.put(2, openAnswerQuestionMap);
 
+        } else {
+
+            try {
+
+                File file = new File(getDir("data", MODE_PRIVATE), "map");
+                FileInputStream fis = new FileInputStream(file);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+
+                typeOfQuestionMap = (HashMap<Integer, HashMap<Integer, String>>) ois.readObject();
+
+            } catch (FileNotFoundException e) {
+                Log.e(e.getMessage(), "FileNotFoundException");
+                e.printStackTrace();
+
+            } catch (IOException e) {
+                Log.e(e.getMessage(), "IOException Read Object");
+                e.printStackTrace();
+
+            } catch (ClassNotFoundException e) {
+                Log.e(e.getMessage(), "ClassNotFoundException");
+                e.printStackTrace();
+            }
         }
-
-
-
-
-        /* else {
-
-            Set<String> singleStringSet = sharedPreferences.getStringSet(SINGLE_ANSWER_SET_KEY, null);
-            Set<String> multiStringSet = sharedPreferences.getStringSet(MULTI_ANSWER_SET_KEY, null);
-            Set<String> openStringSet = sharedPreferences.getStringSet(OPEN_ANSWER_SET_KEY, null);
-
-            if (singleStringSet != null) {
-                Object[] singleObjectArray = singleStringSet.toArray();
-                for (int i = 0; i < singleObjectArray.length; i++) {
-                    singleAnswerQuestionMap.put(i, (String) singleObjectArray[i]);
-
-                }
-                typeOfQuestionMap.put(0, singleAnswerQuestionMap);
-            } else {
-                typeOfQuestionMap.put(0, new HashMap<Integer, String>(1));
-
-            }
-
-
-            if (multiStringSet != null) {
-                Object[] multiObjectArray = multiStringSet.toArray();
-                for (int i = 0; i < multiObjectArray.length; i++) {
-                    multiAnswerQuestionMap.put(i, (String) multiObjectArray[i]);
-
-                }
-                typeOfQuestionMap.put(1, multiAnswerQuestionMap);
-
-            } else {
-            typeOfQuestionMap.put(1, new HashMap<Integer, String>(1));
-
-            }
-
-
-            if (openStringSet != null) {
-                Object[] openObjectArray = openStringSet.toArray();
-                for (int i = 0; i < openObjectArray.length; i++) {
-                    openAnswerQuestionMap.put(i, (String) openObjectArray[i]);
-
-                }
-                typeOfQuestionMap.put(2, openAnswerQuestionMap);
-
-            } else {
-                typeOfQuestionMap.put(2, new HashMap<Integer, String>(1));
-            }
-
-        }*/
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
 
-//        editor = sharedPreferences.edit();
-//        editor.clear();
-//
-//        Set<String> singleStrings = new HashSet<>();
-//        Set<String> multiStrings = new HashSet<>();
-//        Set<String> openStrings = new HashSet<>();
-//
-//        if (typeOfQuestionMap.get(0) != null) {
-//
-//            for (int i = 0; i < typeOfQuestionMap.get(0).size(); i++) {
-//                singleStrings.add(typeOfQuestionMap.get(0).get(i));
-//            }
-//            editor.putStringSet(SINGLE_ANSWER_SET_KEY, singleStrings);
-//        }
-//
-//
-//        if (typeOfQuestionMap.get(1) != null) {
-//
-//            for (int i = 0; i < typeOfQuestionMap.get(1).size(); i++) {
-//                multiStrings.add(typeOfQuestionMap.get(1).get(i));
-//            }
-//            editor.putStringSet(MULTI_ANSWER_SET_KEY, multiStrings);
-//        }
-//
-//
-//        if (typeOfQuestionMap.get(2) != null) {
-//            for (int i = 0; i < typeOfQuestionMap.get(2).size(); i++) {
-//                openStrings.add(typeOfQuestionMap.get(2).get(i));
-//            }
-//            editor.putStringSet(OPEN_ANSWER_SET_KEY, openStrings);
-//
-//        }
-//        editor.commit();
-
-
         File file = new File(getDir("data", MODE_PRIVATE), "map");
 
         try {
 
-            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream outputStream = new ObjectOutputStream(fos);
             outputStream.writeObject(typeOfQuestionMap);
             outputStream.flush();
             outputStream.close();
 
         } catch (IOException e) {
+            e.printStackTrace();
+            Log.e(e.getMessage(), "IOException Write Object");
 
         }
-
-
-
 
     }
 
