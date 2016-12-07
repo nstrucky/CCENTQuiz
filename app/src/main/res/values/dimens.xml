@@ -7,4 +7,5 @@
     <dimen name="activity_title_screen_text_size">48sp</dimen>
     <dimen name="line_view_dimen">1dp</dimen>
     <dimen name="button_padding">16dp</dimen>
+    <dimen name="landing_text_padding">22dp</dimen>
 </resources>

@@ -3,28 +3,41 @@ package com.netjob.fraganimationpractice;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
-import static android.support.v7.appcompat.R.styleable.AlertDialog;
 
 public class MainActivity extends Activity {
 
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
     protected static final String BUNDLE_QUESTION_NUMBER_KEY = "bundle_question_number_key";
+    protected static final String PREF_CHECK_BUTTON_PUSHED = "bundle_check_button_pushed";
+    protected static final String SHARED_PREF_KEY = "shared_pref_key";
+
+
+    protected SharedPreferences checkButtonPushedPref;
+    protected SharedPreferences.Editor editor;
+
     protected static int score;
     protected int numberOfQuestions;
 
-    Map<Integer, Map<Integer, String>> typeOfQuestionMap;
-    Map<Integer, String> singleAnswerQuestionMap;
-    Map<Integer, String> multiAnswerQuestionMap;
-    Map<Integer, String> openAnswerQuestionMap;
+    HashMap<Integer, HashMap<Integer, String>> typeOfQuestionMap;
+    HashMap<Integer, String> singleAnswerQuestionMap;
+    HashMap<Integer, String> multiAnswerQuestionMap;
+    HashMap<Integer, String> openAnswerQuestionMap;
 
     String[] singleAnswerQuestionsArray;
     String[] multiAnswerQuestionsArray;
@@ -38,49 +51,95 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        checkButtonPushedPref = getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
         randomGenerator = new Random();
-
-        getFragmentManager()
-                .beginTransaction()
-                .add(R.id.main_frag_container, new LandingFragment())
-                .commit();
+        typeOfQuestionMap = new HashMap<>();
+        singleAnswerQuestionMap = new HashMap<>();
+        multiAnswerQuestionMap = new HashMap<>();
+        openAnswerQuestionMap = new HashMap<>();
 
         singleAnswerQuestionsArray = getResources()
-                        .getStringArray(R.array.one_questions_array);
+                .getStringArray(R.array.one_questions_array);
         multiAnswerQuestionsArray = getResources()
-                        .getStringArray(R.array.multi_questions_array);
+                .getStringArray(R.array.multi_questions_array);
         openAnswerQuestionsArray = getResources()
-                        .getStringArray(R.array.open_questions_array);
+                .getStringArray(R.array.open_questions_array);
 
-        numberOfQuestions =
-                        singleAnswerQuestionsArray.length +
-                        multiAnswerQuestionsArray.length +
-                        openAnswerQuestionsArray.length;
+        numberOfQuestions = singleAnswerQuestionsArray.length +
+                            multiAnswerQuestionsArray.length +
+                            openAnswerQuestionsArray.length;
+
+        if (savedInstanceState == null) {
+            getFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.main_frag_container, new LandingFragment())
+                    .commit();
+
+            for (int i = 0; i < singleAnswerQuestionsArray.length; i++) {
+                singleAnswerQuestionMap.put(i, singleAnswerQuestionsArray[i]);
+            }
 
 
-        singleAnswerQuestionMap = new HashMap<>();
-        for (int i = 0; i < singleAnswerQuestionsArray.length; i++) {
-          singleAnswerQuestionMap.put(i, singleAnswerQuestionsArray[i]);
+            for (int i = 0; i < multiAnswerQuestionsArray.length; i++) {
+                multiAnswerQuestionMap.put(i, multiAnswerQuestionsArray[i]);
+            }
+
+
+            for (int i = 0; i < openAnswerQuestionsArray.length; i++) {
+                openAnswerQuestionMap.put(i, openAnswerQuestionsArray[i]);
+            }
+
+            typeOfQuestionMap.put(0, singleAnswerQuestionMap);
+            typeOfQuestionMap.put(1, multiAnswerQuestionMap);
+            typeOfQuestionMap.put(2, openAnswerQuestionMap);
+
+        } else {
+
+            try {
+
+                File file = new File(getDir("data", MODE_PRIVATE), "map");
+                FileInputStream fis = new FileInputStream(file);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+
+                typeOfQuestionMap = (HashMap<Integer, HashMap<Integer, String>>) ois.readObject();
+
+            } catch (FileNotFoundException e) {
+                Log.e(e.getMessage(), "FileNotFoundException");
+                e.printStackTrace();
+
+            } catch (IOException e) {
+                Log.e(e.getMessage(), "IOException Read Object");
+                e.printStackTrace();
+
+            } catch (ClassNotFoundException e) {
+                Log.e(e.getMessage(), "ClassNotFoundException");
+                e.printStackTrace();
+            }
         }
-
-        multiAnswerQuestionMap = new HashMap<>();
-        for (int i = 0; i < multiAnswerQuestionsArray.length; i++) {
-          multiAnswerQuestionMap.put(i, multiAnswerQuestionsArray[i]);
-        }
-
-        openAnswerQuestionMap = new HashMap<>();
-        for (int i = 0; i < openAnswerQuestionsArray.length; i++) {
-          openAnswerQuestionMap.put(i, openAnswerQuestionsArray[i]);
-        }
-
-        typeOfQuestionMap = new HashMap<>();
-
-        typeOfQuestionMap.put(0, singleAnswerQuestionMap);
-        typeOfQuestionMap.put(1, multiAnswerQuestionMap);
-        typeOfQuestionMap.put(2, openAnswerQuestionMap);
     }
 
-    protected void buttonListener(View view) {
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        File file = new File(getDir("data", MODE_PRIVATE), "map");
+
+        try {
+
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream outputStream = new ObjectOutputStream(fos);
+            outputStream.writeObject(typeOfQuestionMap);
+            outputStream.flush();
+            outputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e(e.getMessage(), "IOException Write Object");
+
+        }
+    }
+
+    public void buttonListener(View view) {
 
         int randomTypeOfQuestion;
         int randomQuestionKey;
@@ -107,17 +166,17 @@ public class MainActivity extends Activity {
         switch ((Integer) typeOfQuestionKeys[randomTypeOfQuestion]) {
 
             case 0:
-                questionKeys = singleAnswerQuestionMap.keySet().toArray();
+                questionKeys = typeOfQuestionMap.get(0).keySet().toArray();
                 questionType = 0;
                 break;
 
             case 1:
-                questionKeys = multiAnswerQuestionMap.keySet().toArray();
+                questionKeys = typeOfQuestionMap.get(1).keySet().toArray();
                 questionType = 1;
                 break;
 
             case 2:
-                questionKeys = openAnswerQuestionMap.keySet().toArray();
+                questionKeys = typeOfQuestionMap.get(2).keySet().toArray();
                 questionType = 2;
                 break;
         }
@@ -155,10 +214,13 @@ public class MainActivity extends Activity {
             case 2:
                 toBuildFragment = new OpenAnswerFragment();
                 break;
-
         }
 
         if (toBuildFragment != null) {
+
+            editor = checkButtonPushedPref.edit();
+            editor.putBoolean(PREF_CHECK_BUTTON_PUSHED, true);
+            editor.commit();
 
             toBuildFragment.setArguments(args);
             questionCategory.remove(questionNumberKey);
@@ -201,10 +263,8 @@ public class MainActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-
         builder.create().show();
     }
-
 
     private void resetQuiz() {
 

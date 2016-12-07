@@ -3,18 +3,26 @@
     style="@style/fragment_questions"
     tools:context="com.netjob.fraganimationpractice.LandingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorAccent"
+            />
+
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
+            android:padding="@dimen/landing_text_padding"
             android:text="@string/title_screen_text"
             android:textColor="@color/colorPrimaryDark"
+            android:background="@color/color_frag_background"
             android:textSize="@dimen/activity_title_screen_text_size"
             android:textStyle="bold" />
 
