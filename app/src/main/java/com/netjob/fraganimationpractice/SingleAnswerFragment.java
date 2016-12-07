@@ -2,6 +2,8 @@ package com.netjob.fraganimationpractice;
 
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,11 @@ public class SingleAnswerFragment extends Fragment {
     private RadioButton radioButtonB;
     private RadioButton radioButtonC;
     private RadioButton radioButtonD;
+    private boolean buttonsClickable;
+
+    protected SharedPreferences sharedPreferences;
+    protected SharedPreferences.Editor editor;
+
 
     public SingleAnswerFragment() {
         // Required empty public constructor
@@ -58,6 +65,11 @@ public class SingleAnswerFragment extends Fragment {
 
         checkButton = (ImageButton) view.findViewById(R.id.imageButton_single_check);
         checkButton.setOnClickListener(new CheckButtonListener());
+
+
+        sharedPreferences = getActivity().getSharedPreferences(MainActivity.SHARED_PREF_KEY, 0);
+        buttonsClickable = sharedPreferences.getBoolean(MainActivity.PREF_CHECK_BUTTON_PUSHED, true);
+        setButtonsClickable(buttonsClickable);
 
         return view;
     }
@@ -96,6 +108,16 @@ public class SingleAnswerFragment extends Fragment {
                 Toast.makeText(getContext(), "Incorrect :(", Toast.LENGTH_SHORT).show();
             }
 
+            setButtonsClickable(false);
+            editor = sharedPreferences.edit();
+            editor.putBoolean(MainActivity.PREF_CHECK_BUTTON_PUSHED, false);
+            editor.commit();
+        }
+    }
+
+    private void setButtonsClickable(boolean clickable) {
+
+        if (!clickable) {
             radioGroup.setAlpha(0.5f);
             radioButtonA.setClickable(false);
             radioButtonB.setClickable(false);
@@ -106,8 +128,7 @@ public class SingleAnswerFragment extends Fragment {
             checkButton.setAlpha(0.5f);
 
         }
+
     }
-
-
 
 }

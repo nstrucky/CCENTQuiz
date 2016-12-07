@@ -6,40 +6,30 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
-import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
-
-import static android.support.v7.appcompat.R.styleable.AlertDialog;
 
 public class MainActivity extends Activity {
 
-    final String SHARED_PREF_KEY = "com.netjob.ccentquiz.sharedpref";
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
     protected static final String BUNDLE_STRING_KEY = "bundle_string_key";
     protected static final String BUNDLE_QUESTION_NUMBER_KEY = "bundle_question_number_key";
-    final String SINGLE_ANSWER_SET_KEY = "singleAnswerSet";
-    final String MULTI_ANSWER_SET_KEY = "multiAnswerSet";
-    final String OPEN_ANSWER_SET_KEY = "openAnswerSet";
+    protected static final String PREF_CHECK_BUTTON_PUSHED = "bundle_check_button_pushed";
+    protected static final String SHARED_PREF_KEY = "shared_pref_key";
 
 
+    protected SharedPreferences checkButtonPushedPref;
+    protected SharedPreferences.Editor editor;
 
     protected static int score;
     protected int numberOfQuestions;
@@ -61,9 +51,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        checkButtonPushedPref = getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
         randomGenerator = new Random();
-
-        sharedPreferences = getSharedPreferences(SHARED_PREF_KEY, 0);
         typeOfQuestionMap = new HashMap<>();
         singleAnswerQuestionMap = new HashMap<>();
         multiAnswerQuestionMap = new HashMap<>();
@@ -148,7 +137,6 @@ public class MainActivity extends Activity {
             Log.e(e.getMessage(), "IOException Write Object");
 
         }
-
     }
 
     public void buttonListener(View view) {
@@ -226,10 +214,13 @@ public class MainActivity extends Activity {
             case 2:
                 toBuildFragment = new OpenAnswerFragment();
                 break;
-
         }
 
         if (toBuildFragment != null) {
+
+            editor = checkButtonPushedPref.edit();
+            editor.putBoolean(PREF_CHECK_BUTTON_PUSHED, true);
+            editor.commit();
 
             toBuildFragment.setArguments(args);
             questionCategory.remove(questionNumberKey);
@@ -274,7 +265,6 @@ public class MainActivity extends Activity {
         });
         builder.create().show();
     }
-
 
     private void resetQuiz() {
 

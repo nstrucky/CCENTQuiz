@@ -2,6 +2,7 @@ package com.netjob.fraganimationpractice;
 
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,10 @@ public class MultiAnswerFragment extends Fragment {
     private CheckBox checkBoxC;
     private CheckBox checkBoxD;
     private ImageButton checkButton;
+    private boolean buttonsClickable;
+
+    protected SharedPreferences sharedPreferences;
+    protected SharedPreferences.Editor editor;
 
     public MultiAnswerFragment() {
         // Required empty public constructor
@@ -63,8 +68,12 @@ public class MultiAnswerFragment extends Fragment {
         checkButton = (ImageButton) view.findViewById(R.id.imageButton_multi_check);
         checkButton.setOnClickListener(new CheckButtonListener());
 
+        sharedPreferences = getActivity().getSharedPreferences(MainActivity.SHARED_PREF_KEY, 0);
+        buttonsClickable = sharedPreferences.getBoolean(MainActivity.PREF_CHECK_BUTTON_PUSHED, true);
+        setButtonsClickable(buttonsClickable);
+
         return view;
-    }
+    }//onCreateView()
 
     private void setCorrectAnswers(int questionNumber) {
 
@@ -92,7 +101,7 @@ public class MultiAnswerFragment extends Fragment {
                 correctAnswers[1] = 3;
                 break;
         }
-    }
+    }//setCorrectAnswers()
 
     class CheckButtonListener implements View.OnClickListener {
 
@@ -152,6 +161,18 @@ public class MultiAnswerFragment extends Fragment {
 
             }
 
+            setButtonsClickable(false);
+            editor = sharedPreferences.edit();
+            editor.putBoolean(MainActivity.PREF_CHECK_BUTTON_PUSHED, false);
+            editor.commit();
+
+        }
+    }//CheckButtonListener
+
+    private void setButtonsClickable(boolean clickable) {
+
+        if (!clickable) {
+
             for (CheckBox checkbox : checkBoxes) {
                 checkbox.setClickable(false);
                 checkbox.setAlpha(0.5f);
@@ -159,7 +180,6 @@ public class MultiAnswerFragment extends Fragment {
 
             checkButton.setClickable(false);
             checkButton.setAlpha(0.5f);
-
         }
-    }
+    }//setButtonsClickable()
 }

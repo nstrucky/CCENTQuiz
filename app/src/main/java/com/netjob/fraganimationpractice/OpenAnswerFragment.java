@@ -2,6 +2,7 @@ package com.netjob.fraganimationpractice;
 
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +21,15 @@ public class OpenAnswerFragment extends Fragment {
 
     private String questionTextFromBundle;
     private TextView questionTextView;
-
     private EditText editTextOpenAnswer;
-
     private int questionNumberKey;
     private String correctAnswer;
     private String userInput;
-
     private ImageButton checkButton;
+    private boolean buttonsClickable;
+
+    protected SharedPreferences sharedPreferences;
+    protected SharedPreferences.Editor editor;
 
     public OpenAnswerFragment() {
         // Required empty public constructor
@@ -39,7 +41,6 @@ public class OpenAnswerFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_open_answer, container, false);
 
         editTextOpenAnswer = (EditText) view.findViewById(R.id.editText_open_answer);
-
         questionNumberKey = getArguments().getInt(MainActivity.BUNDLE_QUESTION_NUMBER_KEY);
 
         setCorrectAnswer(questionNumberKey);
@@ -51,6 +52,9 @@ public class OpenAnswerFragment extends Fragment {
         checkButton = (ImageButton) view.findViewById(R.id.imageButton_open_check);
         checkButton.setOnClickListener(new OpenCheckButtonListener());
 
+        sharedPreferences = getActivity().getSharedPreferences(MainActivity.SHARED_PREF_KEY, 0);
+        buttonsClickable = sharedPreferences.getBoolean(MainActivity.PREF_CHECK_BUTTON_PUSHED, true);
+        setButtonsClickable(buttonsClickable);
 
         return view;
     }
@@ -89,11 +93,21 @@ public class OpenAnswerFragment extends Fragment {
                 Toast.makeText(getContext(), "Incorrect :(", Toast.LENGTH_SHORT).show();
             }
 
+            setButtonsClickable(false);
+            editor = sharedPreferences.edit();
+            editor.putBoolean(MainActivity.PREF_CHECK_BUTTON_PUSHED, false);
+            editor.commit();
+        }
+    }
+
+    private void setButtonsClickable(boolean clickable) {
+
+        if (!clickable) {
             editTextOpenAnswer.setEnabled(false);
             editTextOpenAnswer.setAlpha(0.5f);
-
             checkButton.setClickable(false);
             checkButton.setAlpha(0.5f);
+
         }
     }
 
