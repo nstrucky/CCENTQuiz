@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -216,33 +216,53 @@ public class MainActivity extends Activity {
                 break;
         }
 
-        if (toBuildFragment != null) {
 
-            editor = checkButtonPushedPref.edit();
-            editor.putBoolean(PREF_CHECK_BUTTON_PUSHED, true);
-            editor.commit();
+        int screenOrientation = getResources().getConfiguration().orientation;
 
-            toBuildFragment.setArguments(args);
-            questionCategory.remove(questionNumberKey);
+        if (screenOrientation == Configuration.ORIENTATION_PORTRAIT ) {
 
-            getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(
-                            R.animator.card_flip_enter,
-                            R.animator.card_flip_exit)
-                    .replace(R.id.main_frag_container, toBuildFragment)
-                    .commit();
+            if (toBuildFragment != null) {
+
+                editor = checkButtonPushedPref.edit();
+                editor.putBoolean(PREF_CHECK_BUTTON_PUSHED, true);
+                editor.commit();
+
+                toBuildFragment.setArguments(args);
+                questionCategory.remove(questionNumberKey);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                R.animator.card_flip_enter_portrait,
+                                R.animator.card_flip_exit_portrait)
+                        .replace(R.id.main_frag_container, toBuildFragment)
+                        .commit();
+            }
+        } else {
+
+            if (toBuildFragment != null) {
+
+                editor = checkButtonPushedPref.edit();
+                editor.putBoolean(PREF_CHECK_BUTTON_PUSHED, true);
+                editor.commit();
+
+                toBuildFragment.setArguments(args);
+                questionCategory.remove(questionNumberKey);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                R.animator.card_flip_enter,
+                                R.animator.card_flip_exit)
+                        .replace(R.id.main_frag_container, toBuildFragment)
+                        .commit();
+            }
         }
     }
 
     private void displayScore() {
 
         String message;
-
-        Toast.makeText(getApplicationContext(),
-                "You scored " + score + " out of 9!",
-                Toast.LENGTH_SHORT)
-                .show();
 
         if (score < 7) {
             message = "You need to study more, woh woh.";
